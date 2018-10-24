@@ -31,8 +31,6 @@ public class Zaal {
         this.films = films;
     }
 
-
-
     public Long getId() {
         return id;
     }
@@ -41,7 +39,7 @@ public class Zaal {
         this.id = id;
     }
 
-    public String getzaalNummer() {
+    public String getZaalNummer() {
         return zaalNummer;
     }
 
