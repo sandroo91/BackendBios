@@ -1,30 +1,32 @@
 package bios.springframework.spring5webapp.model;
 
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
+
 
 /**
  * Created by mk on 21/10/18.
  */
 @Entity
-@Table(name= "Zalen")
-public class Zaal {
+@Table(name= "Tijden")
+public class Tijden {
 
     @Id
-    @Column(name= "id")
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name= "Zaalnummer")
-    private String zaalNummer;
+    @Column(name = "begintijden")
+    private String begintijd;
 
-    public Zaal(){
+    public Tijden(){
 
     }
 
-    public Zaal(String zaalNummer) {
-        this.zaalNummer = zaalNummer;
+    public Tijden(String begintijd) {
+        this.begintijd = begintijd;
     }
 
     public Long getId() {
@@ -35,13 +37,14 @@ public class Zaal {
         this.id = id;
     }
 
-    public String getZaalNummer() {
-        return zaalNummer;
+    public String getBegintijd() {
+        return begintijd;
     }
 
-    public void setzaalNummer(String zaalNummer) {
-        this.zaalNummer = zaalNummer;
+    public void setBegintijd(String begintijd) {
+        this.begintijd = begintijd;
     }
-
 }
-      
+
+
+

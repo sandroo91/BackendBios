@@ -10,5 +10,4 @@ public class Spring5webappApplication {
 		SpringApplication.run(Spring5webappApplication.class, args);
 		System.out.println("hallo");
 	}
-
 }

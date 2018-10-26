@@ -13,7 +13,7 @@
         <th>Titel</th>
 
     </tr>
-    <tr th:each="film : ${films}">
+    <tr th:each=" film: ${films}">
         <td th:text="${film.id}">123</td>
         <td th:text="${film.title}">Spring in Action</td>
     </tr>
