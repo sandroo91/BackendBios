@@ -1,5 +1,9 @@
 package bios.springframework.spring5webapp.model;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -17,15 +21,15 @@ public class Voorstelling {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "film_id")
     private Film films;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "zaal_id")
     private Zaal zalen;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "tijden_id")
     private Tijden begintijden;
 
@@ -37,6 +41,7 @@ public class Voorstelling {
         this.id = id;
     }
 
+    @JsonGetter(value = "Voorstelling")
     public Long getId() {
         return id;
     }
@@ -45,6 +50,7 @@ public class Voorstelling {
         this.id = id;
     }
 
+    @JsonGetter(value = "Film")
     public Film getFilms() {
         return films;
     }
@@ -53,6 +59,7 @@ public class Voorstelling {
         this.films = films;
     }
 
+    @JsonGetter(value = "Zaal")
     public Zaal getZalen() {
         return zalen;
     }
@@ -61,6 +68,7 @@ public class Voorstelling {
         this.zalen = zalen;
     }
 
+    @JsonGetter(value = "Tijd")
     public Tijden getBegintijden() {
         return begintijden;
     }
@@ -68,8 +76,8 @@ public class Voorstelling {
     public void setBegintijden(Tijden begintijden) {
         this.begintijden = begintijden;
     }
-
 }
+
 
 
 

@@ -1,6 +1,9 @@
 package bios.springframework.spring5webapp.model;
 
 
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -29,6 +32,7 @@ public class Tijden {
         this.begintijd = begintijd;
     }
 
+    @JsonIgnore
     public Long getId() {
         return id;
     }
@@ -37,6 +41,7 @@ public class Tijden {
         this.id = id;
     }
 
+    @JsonGetter(value = "Tijd")
     public String getBegintijd() {
         return begintijd;
     }

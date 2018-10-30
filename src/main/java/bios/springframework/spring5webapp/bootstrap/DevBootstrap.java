@@ -1,5 +1,6 @@
 package bios.springframework.spring5webapp.bootstrap;
 
+
 import bios.springframework.spring5webapp.model.Zaal;
 import bios.springframework.spring5webapp.model.Film;
 import bios.springframework.spring5webapp.model.Tijden;
@@ -35,24 +36,6 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
     }
 
     private void initData(){
-
-
-
-        //Zaal 1
-        Zaal zaal = new Zaal("Zaal 1");
-        Film ddd = new Film("James Bond");
-        Tijden tijd1 = new Tijden("10:00");
-        Voorstelling voorstelling1 = new Voorstelling();
-        voorstelling1.setFilms(ddd);
-        voorstelling1.setZalen(zaal);
-        voorstelling1.setBegintijden(tijd1);
-
-
-
-        zaalRepository.save(zaal);
-        filmRepository.save(ddd);
-        tijdRepository.save(tijd1);
-        voorstellingRepository.save(voorstelling1);
 
     }
 

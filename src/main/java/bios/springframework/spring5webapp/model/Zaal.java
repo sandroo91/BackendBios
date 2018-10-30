@@ -1,5 +1,8 @@
 package bios.springframework.spring5webapp.model;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -27,6 +30,7 @@ public class Zaal {
         this.zaalNummer = zaalNummer;
     }
 
+    @JsonIgnore
     public Long getId() {
         return id;
     }
@@ -35,6 +39,7 @@ public class Zaal {
         this.id = id;
     }
 
+    @JsonGetter(value = "Zaal")
     public String getZaalNummer() {
         return zaalNummer;
     }

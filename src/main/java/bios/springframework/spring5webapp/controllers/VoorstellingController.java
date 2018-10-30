@@ -1,27 +1,33 @@
 package bios.springframework.spring5webapp.controllers;
 
-import bios.springframework.spring5webapp.repositories.VoorstellingRepository;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
+
+import bios.springframework.spring5webapp.model.Voorstelling;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
+import bios.springframework.spring5webapp.dao.VoorstellingDAO;
+
+import javax.validation.Valid;
+import java.util.List;
 
 /**
  * Created by jt on 5/18/17.
  */
-@Controller
+@RestController
+@RequestMapping("/voorstelling")
 public class VoorstellingController {
 
-    private VoorstellingRepository voorstellingRepository;
+    @Autowired
+    VoorstellingDAO voorstellingDAO;
 
-    public VoorstellingController(VoorstellingRepository voorstellingRepository) {
-        this.voorstellingRepository = voorstellingRepository;
+    @PostMapping(value= "/filmstijdenzalen" , consumes = {MediaType.APPLICATION_JSON_VALUE})
+        public Voorstelling createVoorstelling(@Valid @RequestBody Voorstelling voorstelling){
+        return voorstellingDAO.save(voorstelling);
     }
 
-    @RequestMapping("/voorstellingen")
-    public String getBooks(Model model){
-
-        model.addAttribute("voorstellingen", voorstellingRepository.findAll());
-
-        return "voorstellingen";
+    @GetMapping("/filmstijdenzalen")
+        public List<Voorstelling> getAllVoorstellingen(){
+        return voorstellingDAO.findAll();
     }
+
 }

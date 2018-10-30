@@ -1,13 +1,13 @@
 package bios.springframework.spring5webapp.controllers;
 
 import bios.springframework.spring5webapp.repositories.FilmRepository;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import bios.springframework.spring5webapp.model.Film;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-/**
- * Created by jt on 5/18/17.
- */
 @Controller
 public class FilmController {
 
@@ -17,11 +17,14 @@ public class FilmController {
         this.filmRepository = filmRepository;
     }
 
+
     @RequestMapping("/films")
-    public String getBooks(Model model){
+    public String getFilmTitel(Model model){
 
         model.addAttribute("films", filmRepository.findAll());
 
         return "films";
     }
+
+
 }
