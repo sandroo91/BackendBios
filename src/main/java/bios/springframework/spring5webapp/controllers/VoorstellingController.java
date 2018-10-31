@@ -13,12 +13,14 @@ import java.util.List;
 /**
  * Created by jt on 5/18/17.
  */
+@CrossOrigin(origins = { "http://localhost:8080",  "http://localhost:8081" })
 @RestController
 @RequestMapping("/voorstelling")
 public class VoorstellingController {
 
     @Autowired
     VoorstellingDAO voorstellingDAO;
+
 
     @PostMapping(value= "/filmstijdenzalen" , consumes = {MediaType.APPLICATION_JSON_VALUE})
         public Voorstelling createVoorstelling(@Valid @RequestBody Voorstelling voorstelling){
