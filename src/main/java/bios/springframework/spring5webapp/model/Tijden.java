@@ -41,7 +41,7 @@ public class Tijden {
         this.id = id;
     }
 
-    @JsonGetter(value = "Tijd")
+
     public String getBegintijd() {
         return begintijd;
     }

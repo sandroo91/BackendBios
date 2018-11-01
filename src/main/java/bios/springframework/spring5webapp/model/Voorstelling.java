@@ -2,10 +2,12 @@ package bios.springframework.spring5webapp.model;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 
@@ -33,7 +35,7 @@ public class Voorstelling {
     @JoinColumn(name = "tijden_id")
     private Tijden begintijden;
 
-    public Voorstelling(){
+    public Voorstelling() {
 
     }
 
@@ -76,7 +78,8 @@ public class Voorstelling {
     public void setBegintijden(Tijden begintijden) {
         this.begintijden = begintijden;
     }
-}
+
+    }
 
 
 

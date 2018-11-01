@@ -39,7 +39,7 @@ public class Zaal {
         this.id = id;
     }
 
-    @JsonGetter(value = "Zaal")
+
     public String getZaalNummer() {
         return zaalNummer;
     }
