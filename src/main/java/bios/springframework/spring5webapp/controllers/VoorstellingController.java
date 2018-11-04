@@ -1,6 +1,5 @@
 package bios.springframework.spring5webapp.controllers;
 
-
 import bios.springframework.spring5webapp.model.Voorstelling;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
