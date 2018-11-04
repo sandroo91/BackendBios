@@ -2,12 +2,11 @@ package bios.springframework.spring5webapp.model;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.Cascade;
 
+import java.math.BigDecimal;
 import javax.persistence.*;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 
@@ -35,7 +34,11 @@ public class Voorstelling {
     @JoinColumn(name = "tijden_id")
     private Tijden begintijden;
 
-    public Voorstelling() {
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name= "dagen_id")
+    private Dag dagen;
+
+    public Voorstelling(){
 
     }
 
@@ -79,7 +82,25 @@ public class Voorstelling {
         this.begintijden = begintijden;
     }
 
+    @JsonGetter(value = "Dag")
+    public Dag getDagen()  { return dagen; }
+
+    public void setDagen(Dag dagen) { this.dagen = dagen; }
+
+    public  double getKaartPrijs(Long id) {
+        double prijs = 7.50;
+        if (this.films.isIMAX()== true){
+            prijs ++;
+        }
+        if (this.films.isDDD()== true){
+            prijs ++;
+        }
+        if (this.films.isExtralang() == true){
+            prijs ++;
+        }
+        return prijs;
     }
+}
 
 
 

@@ -22,12 +22,16 @@ public class Zaal {
     @Column(name= "Zaalnummer")
     private String zaalNummer;
 
+    @Column(name= "aantalStoelen")
+    private Long aantalStoelen;
+
     public Zaal(){
 
     }
 
     public Zaal(String zaalNummer) {
         this.zaalNummer = zaalNummer;
+
     }
 
     @JsonIgnore
@@ -39,7 +43,6 @@ public class Zaal {
         this.id = id;
     }
 
-
     public String getZaalNummer() {
         return zaalNummer;
     }
@@ -48,5 +51,11 @@ public class Zaal {
         this.zaalNummer = zaalNummer;
     }
 
+    public Long getAantalStoelen(){
+        return aantalStoelen;
+    }
+
+    public void setAantalStoelen(Long aantalStoelen){
+        this.aantalStoelen = aantalStoelen;
+    }
 }
-      

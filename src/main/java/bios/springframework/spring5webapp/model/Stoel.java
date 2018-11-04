@@ -1,8 +1,8 @@
 package bios.springframework.spring5webapp.model;
 
-
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -13,23 +13,23 @@ import java.util.Set;
  * Created by mk on 21/10/18.
  */
 @Entity
-@Table(name= "Tijden")
-public class Tijden {
+@Table(name= "Stoelen")
+public class Stoel {
 
     @Id
-    @Column(name = "id")
+    @Column(name= "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "begintijden")
-    private String begintijd;
-
-    public Tijden(){
+    public Stoel(){
 
     }
 
-    public Tijden(String begintijd) {
-        this.begintijd = begintijd;
+    @Column(name= "StoelNummer")
+    private Long stoelNummer;
+
+    public Stoel(Long stoelNummer) {
+        this.stoelNummer = stoelNummer;
     }
 
     @JsonIgnore
@@ -42,14 +42,16 @@ public class Tijden {
     }
 
 
-    public String getBegintijd() {
-        return begintijd;
+    public Long getstoelNummer() {
+        return stoelNummer;
     }
 
-    public void setBegintijd(String begintijd) {
-        this.begintijd = begintijd;
+    public void setstoelNummer(Long stoelNummer) {
+        this.stoelNummer = stoelNummer;
     }
+
 }
+
 
 
 
