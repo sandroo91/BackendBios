@@ -52,9 +52,9 @@ public class FilmController {
         film.setTitle(filmDetails.getTitle());
         film.setSamenvatting(filmDetails.getSamenvatting());
         film.setPrijs(filmDetails.getPrijs());
-        film.setIMAX(filmDetails.getIMAX());
+        film.setIMAX(filmDetails.isIMAX());
         film.setPoster(filmDetails.getPoster());
-        film.setExtralang(filmDetails.getExtralang());
+        film.setExtralang(filmDetails.isExtralang());
         film.setDDD(filmDetails.isDDD());
         film.setKijkwijzer(filmDetails.getKijkwijzer());
 

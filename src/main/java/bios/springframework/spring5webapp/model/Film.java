@@ -34,17 +34,17 @@ public class Film {
     @Column(name = "kijkwijzer",nullable=false)
     private String kijkwijzer;
 
-    @Column(name="prijs",nullable=false)
+    @Column(name="prijs")
     private double prijs;
 
     @Column(name = "extralang",nullable=false)
-    private int extralang;
+    private boolean extralang;
 
     @Column(name="IMAX",nullable=false)
-    private int IMAX;
+    private boolean IMAX;
 
     @Column(name="DDD",nullable=false)
-    private int DDD;
+    private boolean DDD;
 
     @Column(name="datumBeschikbaar",nullable=false)
     private LocalDate datumBeschikbaar;
@@ -119,27 +119,27 @@ public class Film {
         this.kijkwijzer = kijkwijzer;
     }
 
-    public int getExtralang(){
+    public boolean isExtralang(){
         return extralang;
     }
 
-    public void setExtralang(int extralang) {
+    public void setExtralang(boolean extralang) {
         this.extralang = extralang;
     }
 
-    public int getIMAX() {
+    public boolean isIMAX() {
         return IMAX;
     }
 
-    public void setIMAX(int IMAX) {
+    public void setIMAX(boolean IMAX) {
         this.IMAX = IMAX;
     }
 
-    public int isDDD(){
+    public boolean isDDD(){
         return DDD;
     }
 
-    public void setDDD(int DDD){
+    public void setDDD(boolean DDD){
         this.DDD = DDD;
     }
 

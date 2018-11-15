@@ -25,21 +25,16 @@ public class Zaal {
     private Long aantalStoelen;
 
     @Column(name="IMAXZaal",nullable=false)
-    private int IMAXZaal;
+    private boolean IMAXZaal;
 
     @Column(name="drieDZaal",nullable=false)
-    private int drieDZaal;
+    private boolean drieDZaal;
 
     public Zaal(){
 
     }
 
-    public Zaal(String zaalNummer, Long aantalStoelen, int IMAXZaal, int drieDZaal) {
-        this.zaalNummer = zaalNummer;
-        this.aantalStoelen = aantalStoelen;
-        this.IMAXZaal = IMAXZaal;
-        this.drieDZaal = drieDZaal;
-    }
+
 
     @JsonIgnore
     public Long getId() {
@@ -67,21 +62,19 @@ public class Zaal {
         this.aantalStoelen = aantalStoelen;
     }
 
-    @JsonIgnore
-    public int getIMAXZaal() {
+    public boolean isIMAXZaal() {
         return IMAXZaal;
     }
 
-    public void setIMAXZaal(int IMAXZaal) {
+    public void setIMAXZaal(boolean IMAXZaal) {
         this.IMAXZaal = IMAXZaal;
     }
 
-    @JsonIgnore
-    public int getDrieDZaal() {
+    public boolean isDrieDZaal() {
         return drieDZaal;
     }
 
-    public void setDrieDZaal(int drieDZaal) {
+    public void setDrieDZaal(boolean drieDZaal) {
         this.drieDZaal = drieDZaal;
     }
 }
