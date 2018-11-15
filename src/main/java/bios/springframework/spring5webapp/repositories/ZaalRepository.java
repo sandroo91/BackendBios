@@ -1,7 +1,9 @@
 package bios.springframework.spring5webapp.repositories;
 
 import bios.springframework.spring5webapp.model.Zaal;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface ZaalRepository extends CrudRepository <Zaal, Long> {
+@Repository
+public interface ZaalRepository extends JpaRepository<Zaal, Long> {
 }

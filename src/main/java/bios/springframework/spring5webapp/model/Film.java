@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,19 +14,15 @@ import java.util.Set;
  * Created by mk on 21/10/18.
  */
 @Entity
-@Table(name= "Films")
+@Table(name= "Film")
 public class Film {
 
     @Id
-    @Column(name= "id")
+    @Column(name= "filmid")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long filmid;
 
-    public Film(){
-
-    }
-
-    @Column(name= "titel")
+    @Column(name= "titel", unique = true,nullable=false)
     private String title;
 
     @Column(name= "samenvatting")
@@ -34,36 +31,37 @@ public class Film {
     @Column(name= "poster")
     private String poster;
 
-    @Column(name = "leeftijdscategorie")
-    private String leeftijdscategorie;
+    @Column(name = "kijkwijzer",nullable=false)
+    private String kijkwijzer;
 
-    @Column(name = "extralang")
-    private boolean extralang;
+    @Column(name="prijs",nullable=false)
+    private double prijs;
 
-    @Column(name="IMAX")
-    private boolean IMAX;
+    @Column(name = "extralang",nullable=false)
+    private int extralang;
 
-    @Column(name="DDD")
-    private boolean DDD;
+    @Column(name="IMAX",nullable=false)
+    private int IMAX;
 
-    public Film(String title, String samenvatting/*, String poster, String leeftijdscategorie, boolean extralang, boolean IMAX, boolean DDD*/) {
-        this.title = title;
-        this.samenvatting = samenvatting;
-        /*this.poster = poster;
-        this.leeftijdscategorie = leeftijdscategorie;
-        this.extralang = extralang;
-        this.IMAX = IMAX;
-        this.DDD = DDD; */
+    @Column(name="DDD",nullable=false)
+    private int DDD;
+
+    @Column(name="datumBeschikbaar",nullable=false)
+    private LocalDate datumBeschikbaar;
+
+    @Column(name="afloopDatum",nullable=false)
+    private LocalDate afloopDatum;
+    public Film() {
 
     }
 
     @JsonIgnore
     public Long getId() {
-        return id;
+        return filmid;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.filmid = id;
     }
 
 
@@ -91,33 +89,57 @@ public class Film {
         this.poster = poster;
     }
 
-    public String getLeeftijdscategorie() { return  leeftijdscategorie; }
-
-    public void setLeeftijdscategorie(String leeftijdscategorie) {
-        this.leeftijdscategorie = leeftijdscategorie;
+    public double getPrijs() {
+        return prijs;
     }
 
-    public boolean isExtralang(){
+    public void setPrijs(double prijs) {
+        this.prijs = prijs;
+    }
+
+    public LocalDate getDatumBeschikbaar() {
+        return datumBeschikbaar;
+    }
+
+    public void setDatumBeschikbaar(LocalDate datumBeschikbaar) {
+        this.datumBeschikbaar = datumBeschikbaar;
+    }
+
+    public LocalDate getAfloopDatum() {
+        return afloopDatum;
+    }
+
+    public void setAfloopDatum(LocalDate afloopDatum) {
+        this.afloopDatum = afloopDatum;
+    }
+
+    public String getKijkwijzer() { return  kijkwijzer; }
+
+    public void setKijkwijzer(String kijkwijzer) {
+        this.kijkwijzer = kijkwijzer;
+    }
+
+    public int getExtralang(){
         return extralang;
     }
 
-    public void setExtralang(boolean extralang) {
+    public void setExtralang(int extralang) {
         this.extralang = extralang;
     }
 
-    public boolean isIMAX() {
+    public int getIMAX() {
         return IMAX;
     }
 
-    public void setIMAX(boolean IMAX) {
+    public void setIMAX(int IMAX) {
         this.IMAX = IMAX;
     }
 
-    public boolean isDDD(){
+    public int isDDD(){
         return DDD;
     }
 
-    public void setDDD(boolean DDD){
+    public void setDDD(int DDD){
         this.DDD = DDD;
     }
 

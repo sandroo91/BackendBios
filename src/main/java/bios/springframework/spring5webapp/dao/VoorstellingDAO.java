@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class VoorstellingDAO {
@@ -20,7 +21,16 @@ public class VoorstellingDAO {
     }
 
     public List<Voorstelling> findAll(){
-        return (List<Voorstelling>) voorstellingRepository.findAll();
-
+        return voorstellingRepository.findAll();
     }
+
+    public Voorstelling  findById(Long voorstellingid){
+        return voorstellingRepository.findById(voorstellingid).get();
+    }
+
+    public void delete(Voorstelling voorstelling){
+        voorstellingRepository.delete(voorstelling);
+    }
+
+
  }

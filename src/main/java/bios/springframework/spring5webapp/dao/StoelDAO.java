@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StoelDAO {
@@ -20,7 +21,14 @@ public class StoelDAO {
     }
 
     public List<Stoel> findAll(){
-        return (List<Stoel>) stoelRepository.findAll();
+        return stoelRepository.findAll();
+    }
 
+    public Stoel findById(Long stoelid){
+       return stoelRepository.findById(stoelid).get();
+    }
+
+    public void delete(Stoel stoel){
+        stoelRepository.delete(stoel);
     }
 }

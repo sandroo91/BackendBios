@@ -3,18 +3,18 @@ package bios.springframework.spring5webapp.model;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cascade;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.Set;
 
 
-/**
- * Created by mk on 21/10/18.
- */
 @Entity
-@Table(name = "Voorstellingen")
+@Table(name = "Voorstelling")
 public class Voorstelling {
 
     @Id
@@ -22,28 +22,22 @@ public class Voorstelling {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(name="dag",nullable=false)
+    private LocalDate dag;
+
+    @Column(name="tijd",nullable=false)
+    private LocalTime tijd;
+
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "film_id")
+    @JoinColumn(name = "films", referencedColumnName = "filmid", insertable = false, updatable = false)
     private Film films;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "zaal_id")
+    @JoinColumn(name = "zalen", referencedColumnName = "zaalid", insertable = false, updatable = false)
     private Zaal zalen;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "tijden_id")
-    private Tijden begintijden;
-
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name= "dagen_id")
-    private Dag dagen;
-
-    public Voorstelling(){
-
-    }
-
-    public Voorstelling(Long id) {
-        this.id = id;
+    @Autowired
+    public Voorstelling() {
     }
 
     @JsonGetter(value = "Voorstelling")
@@ -73,33 +67,35 @@ public class Voorstelling {
         this.zalen = zalen;
     }
 
-    @JsonGetter(value = "Tijd")
-    public Tijden getBegintijden() {
-        return begintijden;
+    public LocalDate getDag() {
+        return dag;
     }
 
-    public void setBegintijden(Tijden begintijden) {
-        this.begintijden = begintijden;
+    public void setDag(LocalDate dag) {
+        this.dag = dag;
     }
 
-    @JsonGetter(value = "Dag")
-    public Dag getDagen()  { return dagen; }
-
-    public void setDagen(Dag dagen) { this.dagen = dagen; }
-
-    public  double getKaartPrijs(Long id) {
-        double prijs = 7.50;
-        if (this.films.isIMAX()== true){
-            prijs ++;
-        }
-        if (this.films.isDDD()== true){
-            prijs ++;
-        }
-        if (this.films.isExtralang() == true){
-            prijs ++;
-        }
-        return prijs;
+    public LocalTime getTijd() {
+        return tijd;
     }
+
+    public void setTijd(LocalTime tijd) {
+        this.tijd = tijd;
+    }
+
+    //    public  double getKaartPrijs(Long id) {
+//
+//        if ((this.films.isIMAX()== true ) && (this.zalen.isIMAXZaal()) == true ){
+//            prijs ++;
+//        }
+//        if ((this.films.isDDD()== true) && (this.zalen.isDrieDZaal() == true )){
+//            prijs ++;
+//        }
+//        if (this.films.isExtralang() == true){
+//            prijs ++;
+//        }
+//        return prijs;
+//    }
 }
 
 

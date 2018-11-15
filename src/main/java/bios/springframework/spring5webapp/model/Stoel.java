@@ -13,20 +13,22 @@ import java.util.Set;
  * Created by mk on 21/10/18.
  */
 @Entity
-@Table(name= "Stoelen")
+@Table(name= "Stoel")
 public class Stoel {
 
     @Id
-    @Column(name= "id")
+    @Column(name= "stoelid")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long stoelid;
+
+    @Column(name= "StoelNummer", unique = true,nullable=false)
+    private Long stoelNummer;
 
     public Stoel(){
 
     }
 
-    @Column(name= "StoelNummer")
-    private Long stoelNummer;
+
 
     public Stoel(Long stoelNummer) {
         this.stoelNummer = stoelNummer;
@@ -34,11 +36,11 @@ public class Stoel {
 
     @JsonIgnore
     public Long getId() {
-        return id;
+        return stoelid;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.stoelid = id;
     }
 
 

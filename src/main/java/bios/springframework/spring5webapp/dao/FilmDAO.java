@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class FilmDAO {
@@ -20,7 +21,14 @@ public class FilmDAO {
     }
 
     public List<Film> findAll(){
-        return (List<Film>) filmRepository.findAll();
+        return filmRepository.findAll();
+    }
 
+    public Film findById(Long filmid){
+        return filmRepository.findById(filmid).get();
+    }
+
+    public void delete(Film film){
+        filmRepository.delete(film);
     }
 }

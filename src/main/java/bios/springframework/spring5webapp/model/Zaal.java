@@ -2,45 +2,53 @@ package bios.springframework.spring5webapp.model;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by mk on 21/10/18.
- */
 @Entity
 @Table(name= "Zalen")
 public class Zaal {
 
     @Id
-    @Column(name= "id")
+    @Column(name= "zaalid",nullable=false)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long zaalid;
 
-    @Column(name= "Zaalnummer")
+    @Column(name= "Zaalnummer", unique = true,nullable=false)
     private String zaalNummer;
 
-    @Column(name= "aantalStoelen")
+    @Column(name= "aantalStoelen",nullable=false)
     private Long aantalStoelen;
+
+    @Column(name="IMAXZaal",nullable=false)
+    private int IMAXZaal;
+
+    @Column(name="drieDZaal",nullable=false)
+    private int drieDZaal;
 
     public Zaal(){
 
     }
 
-    public Zaal(String zaalNummer) {
+    public Zaal(String zaalNummer, Long aantalStoelen, int IMAXZaal, int drieDZaal) {
         this.zaalNummer = zaalNummer;
-
+        this.aantalStoelen = aantalStoelen;
+        this.IMAXZaal = IMAXZaal;
+        this.drieDZaal = drieDZaal;
     }
 
     @JsonIgnore
     public Long getId() {
-        return id;
+        return zaalid;
     }
 
+    @JsonIgnore
     public void setId(Long id) {
-        this.id = id;
+        this.zaalid = id;
     }
 
     public String getZaalNummer() {
@@ -57,5 +65,23 @@ public class Zaal {
 
     public void setAantalStoelen(Long aantalStoelen){
         this.aantalStoelen = aantalStoelen;
+    }
+
+    @JsonIgnore
+    public int getIMAXZaal() {
+        return IMAXZaal;
+    }
+
+    public void setIMAXZaal(int IMAXZaal) {
+        this.IMAXZaal = IMAXZaal;
+    }
+
+    @JsonIgnore
+    public int getDrieDZaal() {
+        return drieDZaal;
+    }
+
+    public void setDrieDZaal(int drieDZaal) {
+        this.drieDZaal = drieDZaal;
     }
 }
