@@ -47,9 +47,9 @@ public class ZaalController {
             return ResponseEntity.notFound().build();
         }
 
-        zaal.setDrieDZaal(zaalDetails.isDrieDZaal());
+        zaal.setDrieDZaal(zaalDetails.getDrieDZaal());
         zaal.setAantalStoelen(zaalDetails.getAantalStoelen());
-        zaal.setIMAXZaal(zaalDetails.isIMAXZaal());
+        zaal.setimaxZaal(zaalDetails.getimaxZaal());
         zaal.setzaalNummer(zaalDetails.getZaalNummer());
 
         Zaal updateZaal= zaalDAO.save(zaal);

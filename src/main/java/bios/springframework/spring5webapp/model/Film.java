@@ -40,8 +40,8 @@ public class Film {
     @Column(name = "extralang",nullable=false)
     private boolean extralang;
 
-    @Column(name="IMAX",nullable=false)
-    private boolean IMAX;
+    @Column(name="imax",nullable=false)
+    private boolean imax;
 
     @Column(name="DDD",nullable=false)
     private boolean DDD;
@@ -119,7 +119,7 @@ public class Film {
         this.kijkwijzer = kijkwijzer;
     }
 
-    public boolean isExtralang(){
+    public boolean getExtralang(){
         return extralang;
     }
 
@@ -127,15 +127,15 @@ public class Film {
         this.extralang = extralang;
     }
 
-    public boolean isIMAX() {
-        return IMAX;
+    public boolean getimax() {
+        return imax;
     }
 
-    public void setIMAX(boolean IMAX) {
-        this.IMAX = IMAX;
+    public void setimax(boolean IMAX) {
+        this.imax = IMAX;
     }
 
-    public boolean isDDD(){
+    public boolean getDDD(){
         return DDD;
     }
 

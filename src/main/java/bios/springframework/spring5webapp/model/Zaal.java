@@ -1,13 +1,8 @@
 package bios.springframework.spring5webapp.model;
 
-import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import java.util.HashSet;
-import java.util.Set;
+
 
 @Entity
 @Table(name= "Zalen")
@@ -24,8 +19,8 @@ public class Zaal {
     @Column(name= "aantalStoelen",nullable=false)
     private Long aantalStoelen;
 
-    @Column(name="IMAXZaal",nullable=false)
-    private boolean IMAXZaal;
+    @Column(name="imaxZaal",nullable=false)
+    private boolean imaxZaal;
 
     @Column(name="drieDZaal",nullable=false)
     private boolean drieDZaal;
@@ -36,7 +31,7 @@ public class Zaal {
 
 
 
-    @JsonIgnore
+
     public Long getId() {
         return zaalid;
     }
@@ -62,15 +57,15 @@ public class Zaal {
         this.aantalStoelen = aantalStoelen;
     }
 
-    public boolean isIMAXZaal() {
-        return IMAXZaal;
+    public boolean getimaxZaal() {
+        return imaxZaal;
     }
 
-    public void setIMAXZaal(boolean IMAXZaal) {
-        this.IMAXZaal = IMAXZaal;
+    public void setimaxZaal(boolean MAX) {
+        this.imaxZaal = MAX;
     }
 
-    public boolean isDrieDZaal() {
+    public boolean getDrieDZaal() {
         return drieDZaal;
     }
 

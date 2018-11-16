@@ -52,10 +52,10 @@ public class FilmController {
         film.setTitle(filmDetails.getTitle());
         film.setSamenvatting(filmDetails.getSamenvatting());
         film.setPrijs(filmDetails.getPrijs());
-        film.setIMAX(filmDetails.isIMAX());
+        film.setimax(filmDetails.getimax());
         film.setPoster(filmDetails.getPoster());
-        film.setExtralang(filmDetails.isExtralang());
-        film.setDDD(filmDetails.isDDD());
+        film.setExtralang(filmDetails.getExtralang());
+        film.setDDD(filmDetails.getDDD());
         film.setKijkwijzer(filmDetails.getKijkwijzer());
 
         Film UpdateFilm = filmDAO.save(film);
