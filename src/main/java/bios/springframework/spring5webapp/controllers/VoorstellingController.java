@@ -45,10 +45,10 @@ public class VoorstellingController {
             if (voorstelling == null){
                 return ResponseEntity.notFound().build();
             }
-            voorstelling.setDag(voorstelling.getDag());
-            voorstelling.setFilms(voorstelling.getFilms());
-            voorstelling.setTijd(voorstelling.getTijd());
-            voorstelling.setZalen(voorstelling.getZalen());
+            voorstelling.setDag(voorstellingDetails.getDag());
+            voorstelling.setFilms(voorstellingDetails.getFilms());
+            voorstelling.setTijd(voorstellingDetails.getTijd());
+            voorstelling.setZalen(voorstellingDetails.getZalen());
 
             Voorstelling updateVoorstelling= voorstellingDAO.save(voorstelling);
 

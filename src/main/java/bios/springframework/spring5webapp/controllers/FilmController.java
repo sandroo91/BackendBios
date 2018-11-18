@@ -49,7 +49,7 @@ public class FilmController {
         }
         film.setAfloopDatum(filmDetails.getAfloopDatum());
         film.setDatumBeschikbaar(filmDetails.getDatumBeschikbaar());
-        film.setTitle(filmDetails.getTitle());
+        film.setTitel(filmDetails.getTitel());
         film.setSamenvatting(filmDetails.getSamenvatting());
         film.setPrijs(filmDetails.getPrijs());
         film.setimax(filmDetails.getimax());

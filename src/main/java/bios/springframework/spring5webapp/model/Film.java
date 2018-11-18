@@ -23,7 +23,7 @@ public class Film {
     private Long filmid;
 
     @Column(name= "titel", unique = true,nullable=false)
-    private String title;
+    private String titel;
 
     @Column(name= "samenvatting")
     private String samenvatting;
@@ -51,11 +51,12 @@ public class Film {
 
     @Column(name="afloopDatum",nullable=false)
     private LocalDate afloopDatum;
+
     public Film() {
 
     }
 
-    @JsonIgnore
+    @JsonGetter(value= "filmid")
     public Long getId() {
         return filmid;
     }
@@ -65,12 +66,12 @@ public class Film {
     }
 
 
-    public String getTitle() {
-        return title;
+    public String getTitel() {
+        return titel;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setTitel(String titel) {
+        this.titel = titel;
     }
 
     public String getSamenvatting() {

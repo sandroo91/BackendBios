@@ -2,6 +2,7 @@ package bios.springframework.spring5webapp.model;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import org.hibernate.annotations.Cascade;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -29,8 +30,8 @@ public class Voorstelling {
     private LocalTime tijd;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "films", referencedColumnName = "filmid", insertable = false, updatable = false)
-    private Film films;
+    @JoinColumn(name = "film", referencedColumnName = "filmid", insertable = false, updatable = false)
+    private Film film;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "zalen", referencedColumnName = "zaalid", insertable = false, updatable = false)
@@ -40,7 +41,7 @@ public class Voorstelling {
     public Voorstelling() {
     }
 
-    @JsonGetter(value = "Voorstelling")
+    @JsonGetter(value = "id")
     public Long getId() {
         return id;
     }
@@ -49,16 +50,14 @@ public class Voorstelling {
         this.id = id;
     }
 
-    @JsonGetter(value = "Film")
     public Film getFilms() {
-        return films;
+        return film;
     }
 
-    public void setFilms(Film films) {
-        this.films = films;
+    public void setFilms(Film film) {
+        this.film = film;
     }
 
-    @JsonGetter(value = "Zaal")
     public Zaal getZalen() {
         return zalen;
     }

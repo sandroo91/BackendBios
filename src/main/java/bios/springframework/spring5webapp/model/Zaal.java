@@ -1,6 +1,9 @@
 package bios.springframework.spring5webapp.model;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.persistence.*;
 
 
@@ -25,18 +28,17 @@ public class Zaal {
     @Column(name="drieDZaal",nullable=false)
     private boolean drieDZaal;
 
+
     public Zaal(){
 
     }
 
 
-
-
+    @JsonGetter(value= "zaalid")
     public Long getId() {
         return zaalid;
     }
 
-    @JsonIgnore
     public void setId(Long id) {
         this.zaalid = id;
     }
