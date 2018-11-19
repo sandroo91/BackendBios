@@ -55,12 +55,11 @@ public class Film {
 
     }
 
-
+    @JsonIgnore
     public Long getId() {
         return filmid;
     }
 
-    @JsonIgnore
     public void setId(Long id) {
         this.filmid = id;
     }
