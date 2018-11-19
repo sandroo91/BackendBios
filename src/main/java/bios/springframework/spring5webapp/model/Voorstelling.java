@@ -40,16 +40,15 @@ public class Voorstelling {
     public Voorstelling() {
     }
 
-    @JsonGetter(value = "Voorstelling")
     public Long getId() {
         return id;
     }
 
+    @JsonIgnore
     public void setId(Long id) {
         this.id = id;
     }
 
-    @JsonGetter(value = "Film")
     public Film getFilms() {
         return films;
     }
@@ -58,7 +57,6 @@ public class Voorstelling {
         this.films = films;
     }
 
-    @JsonGetter(value = "Zaal")
     public Zaal getZalen() {
         return zalen;
     }

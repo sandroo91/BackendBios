@@ -28,17 +28,11 @@ public class Stoel {
 
     }
 
-
-
-    public Stoel(Long stoelNummer) {
-        this.stoelNummer = stoelNummer;
-    }
-
-    @JsonIgnore
     public Long getId() {
         return stoelid;
     }
 
+    @JsonIgnore
     public void setId(Long id) {
         this.stoelid = id;
     }

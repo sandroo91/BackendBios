@@ -29,9 +29,6 @@ public class Zaal {
 
     }
 
-
-
-
     public Long getId() {
         return zaalid;
     }

@@ -36,11 +36,11 @@ public class Reservering {
     public Reservering() {
     }
 
-    @JsonGetter(value = "Reservering")
     public Long getId() {
         return reserveringNummer;
     }
 
+    @JsonIgnore
     public void setId(Long id) {
         this.reserveringNummer = id;
     }
@@ -53,7 +53,6 @@ public class Reservering {
         this.version = version;
     }
 
-    @JsonGetter(value = "Voorstelling")
     public Voorstelling getVoorstellingen() {
         return voorstellingen;
     }
@@ -62,7 +61,6 @@ public class Reservering {
         this.voorstellingen = voorstellingen;
     }
 
-    @JsonGetter(value = "Stoel")
     public Stoel getStoelen() {
         return stoelen;
     }
@@ -71,7 +69,6 @@ public class Reservering {
         this.stoelen = stoelen;
     }
 
-    @JsonGetter(value = "emailAdres")
     public String getEmailAdres(){
         return emailAdres;
     }
