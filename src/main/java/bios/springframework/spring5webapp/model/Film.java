@@ -31,9 +31,6 @@ public class Film {
     @Column(name= "poster")
     private String poster;
 
-    @Column(name = "kijkwijzer",nullable=false)
-    private String kijkwijzer;
-
     @Column(name="prijs")
     private double prijs;
 
@@ -52,11 +49,21 @@ public class Film {
     @Column(name="afloopDatum",nullable=false)
     private LocalDate afloopDatum;
 
+    @ManyToMany(cascade=CascadeType.ALL, targetEntity= Kijkwijzer.class)
+    @JoinTable(name="kijkwijzerregel",
+            joinColumns = {@JoinColumn(name = "filmid")},
+                    inverseJoinColumns={ @JoinColumn(name = "kwid") } )
+    Set<Kijkwijzer>kijkwijzers= new HashSet<>();
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name="id")
+    private Set<Voorstelling>voorstellingen = new HashSet<>();
+
     public Film() {
 
     }
 
-    @JsonGetter(value= "filmid")
+    @JsonGetter(value="filmid")
     public Long getId() {
         return filmid;
     }
@@ -114,12 +121,6 @@ public class Film {
         this.afloopDatum = afloopDatum;
     }
 
-    public String getKijkwijzer() { return  kijkwijzer; }
-
-    public void setKijkwijzer(String kijkwijzer) {
-        this.kijkwijzer = kijkwijzer;
-    }
-
     public boolean getExtralang(){
         return extralang;
     }
@@ -144,9 +145,23 @@ public class Film {
         this.DDD = DDD;
     }
 
+    public Set<Kijkwijzer> getKijkwijzers() {
+        return kijkwijzers;
+    }
 
+    public void setKijkwijzers(Set<Kijkwijzer> kijkwijzers) {
+        this.kijkwijzers = kijkwijzers;
+    }
 
+    @JsonIgnore
+    public Set<Voorstelling> getVoorstellingen() {
+        return voorstellingen;
+    }
 
+    @JsonIgnore
+    public void setVoorstellingen(Set<Voorstelling> voorstellingen) {
+        this.voorstellingen = voorstellingen;
+    }
 }
 
 

@@ -56,7 +56,7 @@ public class FilmController {
         film.setPoster(filmDetails.getPoster());
         film.setExtralang(filmDetails.getExtralang());
         film.setDDD(filmDetails.getDDD());
-        film.setKijkwijzer(filmDetails.getKijkwijzer());
+        film.setKijkwijzers(filmDetails.getKijkwijzers());
 
         Film UpdateFilm = filmDAO.save(film);
 

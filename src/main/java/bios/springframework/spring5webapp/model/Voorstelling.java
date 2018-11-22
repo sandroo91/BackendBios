@@ -1,17 +1,10 @@
 package bios.springframework.spring5webapp.model;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonSetter;
-import org.hibernate.annotations.Cascade;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import java.math.BigDecimal;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.HashSet;
-import java.util.Set;
+
 
 
 @Entity
@@ -30,11 +23,11 @@ public class Voorstelling {
     private LocalTime tijd;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "film", referencedColumnName = "filmid", insertable = false, updatable = false)
+    @JoinColumn(name = "filmid", foreignKey = @ForeignKey(name= "filmid_FK"), insertable = false, updatable = false)
     private Film film;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "zalen", referencedColumnName = "zaalid", insertable = false, updatable = false)
+    @JoinColumn(name = "zaalid",  foreignKey =@ForeignKey(name= "zaalid_FK"), insertable = false, updatable = false)
     private Zaal zalen;
 
     public Voorstelling() {
