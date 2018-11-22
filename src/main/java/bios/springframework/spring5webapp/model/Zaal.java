@@ -19,7 +19,7 @@ public class Zaal {
     private Long zaalid;
 
     @Column(name= "Zaalnummer", unique = true,nullable=false)
-    private String zaalNummer;
+    private int zaalNummer;
 
     @Column(name= "aantalStoelen",nullable=false)
     private Long aantalStoelen;
@@ -49,11 +49,11 @@ public class Zaal {
         this.zaalid = id;
     }
 
-    public String getZaalNummer() {
+    public int getZaalNummer() {
         return zaalNummer;
     }
 
-    public void setzaalNummer(String zaalNummer) {
+    public void setzaalNummer(int zaalNummer) {
         this.zaalNummer = zaalNummer;
     }
 

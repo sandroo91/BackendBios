@@ -50,9 +50,9 @@ public class Film {
     private LocalDate afloopDatum;
 
     @ManyToMany(cascade=CascadeType.ALL, targetEntity= Kijkwijzer.class)
-    @JoinTable(name="kijkwijzerregel",
+    @JoinTable(name="kwregel",
             joinColumns = {@JoinColumn(name = "filmid")},
-                    inverseJoinColumns={ @JoinColumn(name = "kwid") } )
+            inverseJoinColumns={ @JoinColumn(name = "kwid") } )
     Set<Kijkwijzer>kijkwijzers= new HashSet<>();
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -163,7 +163,3 @@ public class Film {
         this.voorstellingen = voorstellingen;
     }
 }
-
-
-
-
