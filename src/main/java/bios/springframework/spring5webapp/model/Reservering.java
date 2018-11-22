@@ -22,7 +22,7 @@ public class Reservering {
     private int version;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "reserveringid", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "reserveringid", foreignKey =@ForeignKey(name= "id"), insertable = false, updatable = false)
     private Voorstelling voorstellingen;
 
     @ManyToOne(cascade = CascadeType.PERSIST)

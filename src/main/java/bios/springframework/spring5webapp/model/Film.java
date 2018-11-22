@@ -23,16 +23,13 @@ public class Film {
     private Long filmid;
 
     @Column(name= "titel", unique = true,nullable=false)
-    private String title;
+    private String titel;
 
     @Column(name= "samenvatting")
     private String samenvatting;
 
     @Column(name= "poster")
     private String poster;
-
-    @Column(name = "kijkwijzer",nullable=false)
-    private String kijkwijzer;
 
     @Column(name="prijs")
     private double prijs;
@@ -51,11 +48,18 @@ public class Film {
 
     @Column(name="afloopDatum",nullable=false)
     private LocalDate afloopDatum;
+
+    @ManyToMany(cascade=CascadeType.ALL, targetEntity= Kijkwijzer.class)
+    @JoinTable(name="kijkwijzerregel",
+            joinColumns = {@JoinColumn(name = "filmid")},
+                    inverseJoinColumns={ @JoinColumn(name = "kwid") } )
+    Set<Kijkwijzer>kijkwijzers= new HashSet<>();
+
     public Film() {
 
     }
 
-    @JsonIgnore
+    @JsonGetter(value="filmid")
     public Long getId() {
         return filmid;
     }
@@ -65,12 +69,12 @@ public class Film {
     }
 
 
-    public String getTitle() {
-        return title;
+    public String getTitel() {
+        return titel;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setTitel(String titel) {
+        this.titel = titel;
     }
 
     public String getSamenvatting() {
@@ -113,12 +117,6 @@ public class Film {
         this.afloopDatum = afloopDatum;
     }
 
-    public String getKijkwijzer() { return  kijkwijzer; }
-
-    public void setKijkwijzer(String kijkwijzer) {
-        this.kijkwijzer = kijkwijzer;
-    }
-
     public boolean getExtralang(){
         return extralang;
     }
@@ -143,9 +141,13 @@ public class Film {
         this.DDD = DDD;
     }
 
+    public Set<Kijkwijzer> getKijkwijzers() {
+        return kijkwijzers;
+    }
 
-
-
+    public void setKijkwijzers(Set<Kijkwijzer> kijkwijzers) {
+        this.kijkwijzers = kijkwijzers;
+    }
 }
 
 
