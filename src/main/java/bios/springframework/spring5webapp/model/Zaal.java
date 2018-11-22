@@ -2,7 +2,6 @@ package bios.springframework.spring5webapp.model;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -45,6 +44,7 @@ public class Zaal {
         return zaalid;
     }
 
+    @JsonIgnore
     public void setId(Long id) {
         this.zaalid = id;
     }
