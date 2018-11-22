@@ -13,7 +13,7 @@ public class Zaal {
 
     @Id
     @Column(name= "zaalid",nullable=false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long zaalid;
 
     @Column(name= "Zaalnummer", unique = true,nullable=false)
@@ -43,7 +43,7 @@ public class Zaal {
         this.zaalid = id;
     }
 
-    public String getZaalNummer() {
+    public String getzaalNummer() {
         return zaalNummer;
     }
 

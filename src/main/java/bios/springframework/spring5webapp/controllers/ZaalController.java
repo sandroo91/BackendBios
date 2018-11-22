@@ -50,7 +50,7 @@ public class ZaalController {
         zaal.setDrieDZaal(zaalDetails.getDrieDZaal());
         zaal.setAantalStoelen(zaalDetails.getAantalStoelen());
         zaal.setimaxZaal(zaalDetails.getimaxZaal());
-        zaal.setzaalNummer(zaalDetails.getZaalNummer());
+        zaal.setzaalNummer(zaalDetails.getzaalNummer());
 
         Zaal updateZaal= zaalDAO.save(zaal);
 

@@ -19,7 +19,7 @@ public class Film {
 
     @Id
     @Column(name= "filmid")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long filmid;
 
     @Column(name= "titel", unique = true,nullable=false)

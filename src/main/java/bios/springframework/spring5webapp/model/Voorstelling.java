@@ -20,7 +20,7 @@ public class Voorstelling {
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @Column(name="dag",nullable=false)
@@ -37,7 +37,6 @@ public class Voorstelling {
     @JoinColumn(name = "zalen", referencedColumnName = "zaalid", insertable = false, updatable = false)
     private Zaal zalen;
 
-    @Autowired
     public Voorstelling() {
     }
 
@@ -49,6 +48,7 @@ public class Voorstelling {
     public void setId(Long id) {
         this.id = id;
     }
+
 
     public Film getFilms() {
         return film;
