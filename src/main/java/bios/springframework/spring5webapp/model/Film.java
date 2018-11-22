@@ -55,6 +55,10 @@ public class Film {
                     inverseJoinColumns={ @JoinColumn(name = "kwid") } )
     Set<Kijkwijzer>kijkwijzers= new HashSet<>();
 
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name="id")
+    private Set<Voorstelling>voorstellingen = new HashSet<>();
+
     public Film() {
 
     }
@@ -147,6 +151,16 @@ public class Film {
 
     public void setKijkwijzers(Set<Kijkwijzer> kijkwijzers) {
         this.kijkwijzers = kijkwijzers;
+    }
+
+    @JsonIgnore
+    public Set<Voorstelling> getVoorstellingen() {
+        return voorstellingen;
+    }
+
+    @JsonIgnore
+    public void setVoorstellingen(Set<Voorstelling> voorstellingen) {
+        this.voorstellingen = voorstellingen;
     }
 }
 

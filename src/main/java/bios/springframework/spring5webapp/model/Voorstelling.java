@@ -23,11 +23,11 @@ public class Voorstelling {
     private LocalTime tijd;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "film", foreignKey = @ForeignKey(name= "filmid"), insertable = false, updatable = false)
+    @JoinColumn(name = "filmid", foreignKey = @ForeignKey(name= "filmid_FK"), insertable = false, updatable = false)
     private Film film;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "zalen",  foreignKey =@ForeignKey(name= "zaalid"), insertable = false, updatable = false)
+    @JoinColumn(name = "zaalid",  foreignKey =@ForeignKey(name= "zaalid_FK"), insertable = false, updatable = false)
     private Zaal zalen;
 
     public Voorstelling() {
