@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity
@@ -27,6 +29,10 @@ public class Zaal {
 
     @Column(name="drieDZaal",nullable=false)
     private boolean drieDZaal;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name="id")
+    private Set<Voorstelling>voorstellingen = new HashSet<>();
 
 
     public Zaal(){
@@ -73,5 +79,13 @@ public class Zaal {
 
     public void setDrieDZaal(boolean drieDZaal) {
         this.drieDZaal = drieDZaal;
+    }
+
+    public Set<Voorstelling> getVoorstellingen() {
+        return voorstellingen;
+    }
+
+    public void setVoorstellingen(Set<Voorstelling> voorstellingen) {
+        this.voorstellingen = voorstellingen;
     }
 }
