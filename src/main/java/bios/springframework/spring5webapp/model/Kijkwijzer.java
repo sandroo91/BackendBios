@@ -22,8 +22,6 @@ public class Kijkwijzer {
     @Column(name="symbool")
     private String symbool;
 
-    @ManyToMany(cascade = CascadeType.ALL, targetEntity= Film.class)
-    private Set<Film> filmSet = new HashSet<>();
 
     public Kijkwijzer() {
     }
@@ -52,11 +50,4 @@ public class Kijkwijzer {
         this.symbool = symbool;
     }
 
-    public Set<Film> getFilmSet() {
-        return filmSet;
-    }
-
-    public void setFilmSet(Set<Film> filmSet) {
-        this.filmSet = filmSet;
-    }
 }

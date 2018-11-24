@@ -47,7 +47,6 @@ public class KwController {
         if (kijkwijzer == null){
             return ResponseEntity.notFound().build();
         }
-        kijkwijzer.setFilmSet(KwDetails.getFilmSet());
         kijkwijzer.setKwid(KwDetails.getKwid());
         kijkwijzer.setSymbool(KwDetails.getSymbool());
         kijkwijzer.setTekst(KwDetails.getTekst());
