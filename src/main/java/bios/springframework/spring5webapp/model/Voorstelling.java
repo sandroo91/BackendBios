@@ -1,15 +1,17 @@
 package bios.springframework.spring5webapp.model;
 
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Set;
+import java.util.HashSet;
 
 
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="id")
 @Table(name = "Voorstelling")
 public class Voorstelling {
 
@@ -24,10 +26,12 @@ public class Voorstelling {
     @Column(name="tijd",nullable=false)
     private LocalTime tijd;
 
+    @JsonBackReference(value="v_film")
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "filmid", foreignKey = @ForeignKey(name= "filmid_FK"), insertable = false, updatable = false)
     private Film film;
 
+    @JsonBackReference(value="v_zaal")
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "zaalid",  foreignKey =@ForeignKey(name= "zaalid_FK"), insertable = false, updatable = false)
     private Zaal zalen;
@@ -40,7 +44,6 @@ public class Voorstelling {
         return id;
     }
 
-    @JsonIgnore
     public void setId(Long id) {
         this.id = id;
     }
