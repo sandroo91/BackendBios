@@ -1,7 +1,6 @@
 package bios.springframework.spring5webapp.model;
 
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -9,6 +8,7 @@ import java.util.Set;
 
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="zaalid")
 @Table(name= "Zalen")
 public class Zaal {
 
@@ -29,6 +29,7 @@ public class Zaal {
     @Column(name="drieDZaal",nullable=false)
     private boolean drieDZaal;
 
+    @JsonManagedReference(value="z_vrst")
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name="id")
     private Set<Voorstelling>voorstellingen = new HashSet<>();
@@ -44,7 +45,6 @@ public class Zaal {
         return zaalid;
     }
 
-    @JsonIgnore
     public void setId(Long id) {
         this.zaalid = id;
     }

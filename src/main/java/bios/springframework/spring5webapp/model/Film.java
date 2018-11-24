@@ -1,7 +1,6 @@
 package bios.springframework.spring5webapp.model;
 
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.*;
 
 
 import javax.persistence.*;
@@ -14,6 +13,7 @@ import java.util.Set;
  * Created by mk on 21/10/18.
  */
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="filmid")
 @Table(name= "Film")
 public class Film {
 
@@ -49,12 +49,14 @@ public class Film {
     @Column(name="afloopDatum",nullable=false)
     private LocalDate afloopDatum;
 
+    @JsonManagedReference(value="f_kw")
     @ManyToMany(cascade=CascadeType.ALL, targetEntity= Kijkwijzer.class)
     @JoinTable(name="kwregel",
             joinColumns = {@JoinColumn(name = "filmid")},
             inverseJoinColumns={ @JoinColumn(name = "kwid") } )
     Set<Kijkwijzer>kijkwijzers= new HashSet<>();
 
+    @JsonManagedReference(value="f_vrst")
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name="id")
     private Set<Voorstelling>voorstellingen = new HashSet<>();
