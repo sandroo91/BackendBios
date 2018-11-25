@@ -1,6 +1,7 @@
 package bios.springframework.spring5webapp.model;
 
 import com.fasterxml.jackson.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -8,52 +9,55 @@ import java.util.Set;
 
 
 @Entity
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="zaalid")
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Table(name= "Zalen")
 public class Zaal {
 
     @Id
-    @Column(name= "zaalid",nullable=false)
+    @Column(name= "id",nullable=false)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long zaalid;
+    private Long id;
 
-    @Column(name= "Zaalnummer", unique = true,nullable=false)
-    private int zaalNummer;
+    @Column(name= "Zaalnummer",nullable=false)
+    private String zaalNummer;
 
-    @Column(name= "aantalStoelen",nullable=false)
+    @Column(name= "aantalStoelen")
     private Long aantalStoelen;
 
-    @Column(name="imaxZaal",nullable=false)
+    @Column(name="imaxZaal")
     private boolean imaxZaal;
 
-    @Column(name="drieDZaal",nullable=false)
+    @Column(name="drieDZaal")
     private boolean drieDZaal;
 
-    @JsonManagedReference(value="z_vrst")
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name="id")
+//    @JsonManagedReference
+    @OneToMany(mappedBy = "zalen", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Voorstelling>voorstellingen = new HashSet<>();
 
-
     public Zaal(){
-
     }
 
 
-    @JsonGetter(value= "zaalid")
+    public Zaal(String zaalNummer) {
+        this.zaalNummer = zaalNummer;
+    }
+
+    
+    @JsonGetter(value= "id")
     public Long getId() {
-        return zaalid;
+        return id;
     }
 
+    @JsonSetter(value = "id")
     public void setId(Long id) {
-        this.zaalid = id;
+        this.id = id;
     }
 
-    public int getZaalNummer() {
+    public String getZaalNummer() {
         return zaalNummer;
     }
 
-    public void setzaalNummer(int zaalNummer) {
+    public void setzaalNummer(String zaalNummer) {
         this.zaalNummer = zaalNummer;
     }
 
@@ -81,10 +85,12 @@ public class Zaal {
         this.drieDZaal = drieDZaal;
     }
 
+    @JsonIgnore
     public Set<Voorstelling> getVoorstellingen() {
         return voorstellingen;
     }
 
+    @JsonIgnore
     public void setVoorstellingen(Set<Voorstelling> voorstellingen) {
         this.voorstellingen = voorstellingen;
     }

@@ -1,6 +1,7 @@
 package bios.springframework.spring5webapp.model;
 
 import com.fasterxml.jackson.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 
 import javax.persistence.*;
@@ -13,16 +14,16 @@ import java.util.Set;
  * Created by mk on 21/10/18.
  */
 @Entity
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="filmid")
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="filmid")
 @Table(name= "Film")
 public class Film {
 
     @Id
-    @Column(name= "filmid")
+    @Column(name= "id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long filmid;
+    private Long id;
 
-    @Column(name= "titel", unique = true,nullable=false)
+    @Column(name= "titel",nullable=false)
     private String titel;
 
     @Column(name= "samenvatting")
@@ -34,44 +35,48 @@ public class Film {
     @Column(name="prijs")
     private double prijs;
 
-    @Column(name = "extralang",nullable=false)
+    @Column(name = "extralang")
     private boolean extralang;
 
-    @Column(name="imax",nullable=false)
+    @Column(name="imax")
     private boolean imax;
 
-    @Column(name="DDD",nullable=false)
+    @Column(name="DDD")
     private boolean DDD;
 
-    @Column(name="datumBeschikbaar",nullable=false)
+    @Column(name="datumBeschikbaar")
     private LocalDate datumBeschikbaar;
 
-    @Column(name="afloopDatum",nullable=false)
+    @Column(name="afloopDatum")
     private LocalDate afloopDatum;
 
-    @JsonManagedReference(value="f_kw")
+//    @JsonManagedReference(value="f_kw")
     @ManyToMany(cascade=CascadeType.ALL, targetEntity= Kijkwijzer.class)
     @JoinTable(name="kwregel",
             joinColumns = {@JoinColumn(name = "filmid")},
             inverseJoinColumns={ @JoinColumn(name = "kwid") } )
     Set<Kijkwijzer>kijkwijzers= new HashSet<>();
 
-    @JsonManagedReference(value="f_vrst")
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name="id")
+//    @JsonManagedReference(value="f_vrst")
+    @OneToMany(mappedBy = "film", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Voorstelling>voorstellingen = new HashSet<>();
 
     public Film() {
-
     }
 
-    @JsonGetter(value="filmid")
+
+    public Film(String titel) {
+        this.titel = titel;
+    }
+
+    @JsonGetter(value="id")
     public Long getId() {
-        return filmid;
+        return id;
     }
 
+    @JsonSetter(value = "id")
     public void setId(Long id) {
-        this.filmid = id;
+        this.id = id;
     }
 
 

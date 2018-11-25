@@ -1,6 +1,7 @@
 package bios.springframework.spring5webapp.model;
 
 import com.fasterxml.jackson.annotation.*;
+import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -11,7 +12,7 @@ import java.util.HashSet;
 
 
 @Entity
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="id")
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="id")
 @Table(name = "Voorstelling")
 public class Voorstelling {
 
@@ -26,17 +27,22 @@ public class Voorstelling {
     @Column(name="tijd",nullable=false)
     private LocalTime tijd;
 
-    @JsonBackReference(value="v_film")
+//    @JsonBackReference(value="v_film")
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "filmid", foreignKey = @ForeignKey(name= "filmid_FK"), insertable = false, updatable = false)
+    @JoinColumn(name = "filmid")
     private Film film;
 
-    @JsonBackReference(value="v_zaal")
+//    @JsonBackReference
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "zaalid",  foreignKey =@ForeignKey(name= "zaalid_FK"), insertable = false, updatable = false)
+    @JoinColumn(name = "zaalid")
     private Zaal zalen;
 
     public Voorstelling() {
+    }
+
+    public Voorstelling(LocalDate dag, LocalTime tijd) {
+        this.dag = dag;
+        this.tijd = tijd;
     }
 
     @JsonGetter(value = "id")
@@ -49,18 +55,22 @@ public class Voorstelling {
     }
 
 
+//    @JsonGetter(value = "titel")
     public Film getFilms() {
         return film;
     }
 
+    @JsonProperty(value="film")
     public void setFilms(Film film) {
         this.film = film;
     }
 
+//    @JsonGetter(value = "zaalNummer")
     public Zaal getZalen() {
         return zalen;
     }
 
+    @JsonProperty(value="zalen")
     public void setZalen(Zaal zalen) {
         this.zalen = zalen;
     }

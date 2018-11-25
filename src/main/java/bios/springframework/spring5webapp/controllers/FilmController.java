@@ -20,7 +20,7 @@ public class FilmController {
 
 
     @PostMapping(value= "/save" , consumes = {MediaType.APPLICATION_JSON_VALUE})
-    public Film createVoorstelling(@Valid @RequestBody Film film){
+    public Film createFilm(@Valid @RequestBody Film film){
         return filmDAO.save(film);
     }
 
