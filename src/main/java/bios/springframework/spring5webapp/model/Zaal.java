@@ -3,12 +3,13 @@ package bios.springframework.spring5webapp.model;
 import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
 @Entity
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="zaalid")
 @Table(name= "Zalen")
 public class Zaal {
 
@@ -18,7 +19,7 @@ public class Zaal {
     private Long zaalid;
 
     @Column(name= "Zaalnummer", unique = true,nullable=false)
-    private int zaalNummer;
+    private String zaalNummer;
 
     @Column(name= "aantalStoelen",nullable=false)
     private Long aantalStoelen;
@@ -29,16 +30,16 @@ public class Zaal {
     @Column(name="drieDZaal",nullable=false)
     private boolean drieDZaal;
 
-    @JsonManagedReference(value="z_vrst")
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name="id")
-    private Set<Voorstelling>voorstellingen = new HashSet<>();
+    @JsonIgnore
+    @OneToMany(mappedBy = "zalen", cascade = CascadeType.ALL, orphanRemoval = true, targetEntity = Voorstelling.class)
+    private Set<Voorstelling> voorstellingen = new HashSet<>();
 
-
-    public Zaal(){
-
+    public Zaal() {
     }
 
+    public Zaal(Long zaalid) {
+        this.zaalid = zaalid;
+    }
 
     @JsonGetter(value= "zaalid")
     public Long getId() {
@@ -49,11 +50,11 @@ public class Zaal {
         this.zaalid = id;
     }
 
-    public int getZaalNummer() {
+    public String getZaalNummer() {
         return zaalNummer;
     }
 
-    public void setzaalNummer(int zaalNummer) {
+    public void setzaalNummer(String zaalNummer) {
         this.zaalNummer = zaalNummer;
     }
 
@@ -87,5 +88,15 @@ public class Zaal {
 
     public void setVoorstellingen(Set<Voorstelling> voorstellingen) {
         this.voorstellingen = voorstellingen;
+    }
+
+    public void addVoorstelling(Voorstelling voorstelling){
+        voorstelling.setZalen(this);
+        this.voorstellingen.add(voorstelling);
+    }
+
+    public void removeVoorstelling(Voorstelling voorstelling){
+        voorstelling.setZalen(null);
+        this.voorstellingen.remove(voorstelling);
     }
 }

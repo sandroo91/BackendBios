@@ -45,6 +45,8 @@ public class VoorstellingController {
             if (voorstelling == null){
                 return ResponseEntity.notFound().build();
             }
+
+            voorstelling.setId(voorstellingDetails.getId());
             voorstelling.setDag(voorstellingDetails.getDag());
             voorstelling.setFilms(voorstellingDetails.getFilms());
             voorstelling.setTijd(voorstellingDetails.getTijd());

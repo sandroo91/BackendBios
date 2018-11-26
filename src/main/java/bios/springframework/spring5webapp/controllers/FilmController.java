@@ -47,6 +47,8 @@ public class FilmController {
         if (film == null){
             return ResponseEntity.notFound().build();
         }
+
+        film.setId(filmDetails.getId());
         film.setAfloopDatum(filmDetails.getAfloopDatum());
         film.setDatumBeschikbaar(filmDetails.getDatumBeschikbaar());
         film.setTitel(filmDetails.getTitel());

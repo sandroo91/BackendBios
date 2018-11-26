@@ -1,13 +1,6 @@
 package bios.springframework.spring5webapp.model;
 
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.annotations.Cascade;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(name = "Reservering")
@@ -22,7 +15,7 @@ public class Reservering {
     private int version;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "reserveringid", foreignKey =@ForeignKey(name= "id"), insertable = false, updatable = false)
+    @JoinColumn(name = "reserveringid")
     private Voorstelling voorstellingen;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
@@ -32,7 +25,6 @@ public class Reservering {
     @Column(name= "email",nullable=false)
     private String emailAdres;
 
-    @Autowired
     public Reservering() {
     }
 
@@ -40,7 +32,6 @@ public class Reservering {
         return reserveringNummer;
     }
 
-    @JsonIgnore
     public void setId(Long id) {
         this.reserveringNummer = id;
     }

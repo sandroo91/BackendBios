@@ -5,15 +5,10 @@ import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 
-/**
- * Created by mk on 21/10/18.
- */
 @Entity
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="filmid")
 @Table(name= "Film")
 public class Film {
 
@@ -49,20 +44,18 @@ public class Film {
     @Column(name="afloopDatum",nullable=false)
     private LocalDate afloopDatum;
 
-    @JsonManagedReference(value="f_kw")
+    @JsonIgnore
     @ManyToMany(cascade=CascadeType.ALL, targetEntity= Kijkwijzer.class)
     @JoinTable(name="kwregel",
             joinColumns = {@JoinColumn(name = "filmid")},
             inverseJoinColumns={ @JoinColumn(name = "kwid") } )
     Set<Kijkwijzer>kijkwijzers= new HashSet<>();
 
-    @JsonManagedReference(value="f_vrst")
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name="id")
-    private Set<Voorstelling>voorstellingen = new HashSet<>();
+    @JsonIgnore
+    @OneToMany(mappedBy = "films", cascade = CascadeType.ALL,orphanRemoval = true, targetEntity = Voorstelling.class)
+    private Set<Voorstelling> voorstellingen = new HashSet<>();
 
     public Film() {
-
     }
 
     @JsonGetter(value="filmid")
@@ -155,13 +148,21 @@ public class Film {
         this.kijkwijzers = kijkwijzers;
     }
 
-    @JsonIgnore
     public Set<Voorstelling> getVoorstellingen() {
         return voorstellingen;
     }
 
-    @JsonIgnore
     public void setVoorstellingen(Set<Voorstelling> voorstellingen) {
         this.voorstellingen = voorstellingen;
+    }
+
+    public void addVoorstelling(Voorstelling voorstelling){
+        voorstelling.setFilms(this);
+        this.voorstellingen.add(voorstelling);
+    }
+
+    public void removeVoorstelling(Voorstelling voorstelling){
+        voorstelling.setFilms(null);
+        this.voorstellingen.remove(voorstelling);
     }
 }

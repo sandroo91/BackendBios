@@ -5,13 +5,10 @@ import com.fasterxml.jackson.annotation.*;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Set;
 import java.util.HashSet;
-
-
+import java.util.Set;
 
 @Entity
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="id")
 @Table(name = "Voorstelling")
 public class Voorstelling {
 
@@ -26,17 +23,24 @@ public class Voorstelling {
     @Column(name="tijd",nullable=false)
     private LocalTime tijd;
 
-    @JsonBackReference(value="v_film")
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "filmid", foreignKey = @ForeignKey(name= "filmid_FK"), insertable = false, updatable = false)
-    private Film film;
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @JoinColumn(name = "filmid")
+    private Film films;
 
-    @JsonBackReference(value="v_zaal")
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "zaalid",  foreignKey =@ForeignKey(name= "zaalid_FK"), insertable = false, updatable = false)
+
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @JoinColumn(name = "zaalid")
     private Zaal zalen;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "voorstellingen", cascade = CascadeType.ALL,orphanRemoval = true, targetEntity = Reservering.class)
+    private Set<Reservering> reserveringen = new HashSet<>();
+
     public Voorstelling() {
+    }
+
+    public Voorstelling(Long id) {
+        this.id = id;
     }
 
     @JsonGetter(value = "id")
@@ -44,16 +48,17 @@ public class Voorstelling {
         return id;
     }
 
+    @JsonProperty
     public void setId(Long id) {
         this.id = id;
     }
 
     public Film getFilms() {
-        return film;
+        return films;
     }
 
     public void setFilms(Film film) {
-        this.film = film;
+        this.films = film;
     }
 
     public Zaal getZalen() {
@@ -80,7 +85,17 @@ public class Voorstelling {
         this.tijd = tijd;
     }
 
-    //    public  double getKaartPrijs(Long id) {
+    public void addReservering(Reservering reservering){
+        reservering.setVoorstellingen(this);
+        this.reserveringen.add(reservering);
+    }
+
+    public void removeReservering(Reservering reservering){
+        reservering.setVoorstellingen(null);
+        this.reserveringen.remove(reservering);
+    }
+
+//        public  double getKaartPrijs(Long id) {
 //
 //        if ((this.films.isIMAX()== true ) && (this.zalen.isIMAXZaal()) == true ){
 //            prijs ++;

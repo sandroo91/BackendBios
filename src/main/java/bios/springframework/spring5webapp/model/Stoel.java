@@ -32,11 +32,9 @@ public class Stoel {
         return stoelid;
     }
 
-    @JsonIgnore
     public void setId(Long id) {
         this.stoelid = id;
     }
-
 
     public Long getstoelNummer() {
         return stoelNummer;

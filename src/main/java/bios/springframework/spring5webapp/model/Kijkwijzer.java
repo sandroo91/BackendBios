@@ -1,11 +1,11 @@
 package bios.springframework.spring5webapp.model;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.Entity;
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+
 
 @Entity
 @Table(name= "Kijkwijzer")
@@ -22,14 +22,15 @@ public class Kijkwijzer {
     @Column(name="symbool")
     private String symbool;
 
-
     public Kijkwijzer() {
     }
 
+    @JsonGetter(value="kwid")
     public Long getKwid() {
         return kwid;
     }
 
+    @JsonProperty
     public void setKwid(Long kwid) {
         this.kwid = kwid;
     }
