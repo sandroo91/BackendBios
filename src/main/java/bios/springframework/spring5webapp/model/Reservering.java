@@ -15,7 +15,7 @@ public class Reservering {
     private int version;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "reserveringid")
+    @JoinColumn(name = "rid")
     private Voorstelling voorstellingen;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
