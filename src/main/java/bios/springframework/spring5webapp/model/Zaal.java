@@ -1,53 +1,55 @@
 package bios.springframework.spring5webapp.model;
 
 import com.fasterxml.jackson.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 
 @Entity
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Table(name= "Zalen")
 public class Zaal {
 
     @Id
-    @Column(name= "zaalid",nullable=false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long zaalid;
+    @Column(name= "id",nullable=false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-    @Column(name= "Zaalnummer", unique = true,nullable=false)
+    @Column(name= "Zaalnummer",nullable=false)
     private String zaalNummer;
 
-    @Column(name= "aantalStoelen",nullable=false)
+    @Column(name= "aantalStoelen")
     private Long aantalStoelen;
 
-    @Column(name="imaxZaal",nullable=false)
+    @Column(name="imaxZaal")
     private boolean imaxZaal;
 
-    @Column(name="drieDZaal",nullable=false)
+    @Column(name="drieDZaal")
     private boolean drieDZaal;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "zalen", cascade = CascadeType.ALL, orphanRemoval = true, targetEntity = Voorstelling.class)
-    private Set<Voorstelling> voorstellingen = new HashSet<>();
+//    @JsonManagedReference
+    @OneToMany(mappedBy = "zalen", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<Voorstelling>voorstellingen = new HashSet<>();
 
-    public Zaal() {
+    public Zaal(){
     }
 
-    public Zaal(Long zaalid) {
-        this.zaalid = zaalid;
+
+    public Zaal(String zaalNummer) {
+        this.zaalNummer = zaalNummer;
     }
 
-    @JsonGetter(value= "zaalid")
-    public Long getZaalid() {
-        return zaalid;
+    @JsonGetter(value= "id")
+    public Long getId() {
+        return id;
     }
 
-    public void setZaalid(Long id) {
-        this.zaalid = id;
+    @JsonSetter(value = "id")
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getZaalNummer() {
@@ -82,21 +84,13 @@ public class Zaal {
         this.drieDZaal = drieDZaal;
     }
 
+    @JsonIgnore
     public Set<Voorstelling> getVoorstellingen() {
         return voorstellingen;
     }
 
+    @JsonIgnore
     public void setVoorstellingen(Set<Voorstelling> voorstellingen) {
         this.voorstellingen = voorstellingen;
-    }
-
-    public void addVoorstelling(Voorstelling voorstelling){
-        voorstelling.setZalen(this);
-        this.voorstellingen.add(voorstelling);
-    }
-
-    public void removeVoorstelling(Voorstelling voorstelling){
-        voorstelling.setZalen(null);
-        this.voorstellingen.remove(voorstelling);
     }
 }
