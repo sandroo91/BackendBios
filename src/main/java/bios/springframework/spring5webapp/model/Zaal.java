@@ -42,7 +42,6 @@ public class Zaal {
         this.zaalNummer = zaalNummer;
     }
 
-    
     @JsonGetter(value= "id")
     public Long getId() {
         return id;
