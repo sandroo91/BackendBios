@@ -14,7 +14,7 @@ public class Voorstelling {
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name="dag",nullable=false)
@@ -93,6 +93,17 @@ public class Voorstelling {
     public void removeReservering(Reservering reservering){
         reservering.setVoorstellingen(null);
         this.reserveringen.remove(reservering);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Voorstelling )) return false;
+        return id != null && id.equals(((Voorstelling) o).id);
+    }
+    @Override
+    public int hashCode() {
+        return 31;
     }
 
 //        public  double getKaartPrijs(Long id) {

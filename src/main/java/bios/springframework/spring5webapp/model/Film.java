@@ -14,7 +14,7 @@ public class Film {
 
     @Id
     @Column(name= "filmid")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long filmid;
 
     @Column(name= "titel", unique = true,nullable=false)
@@ -52,18 +52,18 @@ public class Film {
     Set<Kijkwijzer>kijkwijzers= new HashSet<>();
 
     @JsonIgnore
-    @OneToMany(mappedBy = "films", cascade = CascadeType.ALL,orphanRemoval = true, targetEntity = Voorstelling.class)
+    @OneToMany(mappedBy = "films", cascade = CascadeType.ALL, orphanRemoval = true, targetEntity = Voorstelling.class)
     private Set<Voorstelling> voorstellingen = new HashSet<>();
 
     public Film() {
     }
 
     @JsonGetter(value="filmid")
-    public Long getId() {
+    public Long getFilmid() {
         return filmid;
     }
 
-    public void setId(Long id) {
+    public void setFilmid(Long id) {
         this.filmid = id;
     }
 

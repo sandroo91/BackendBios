@@ -8,14 +8,14 @@ public class Reservering {
 
     @Id
     @Column(name = "reserveringid")
-    @GeneratedValue(strategy = GenerationType.AUTO )
+    @GeneratedValue(strategy = GenerationType.IDENTITY )
     private Long reserveringNummer;
 
     @Version
     private int version;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "reserveringid")
+    @JoinColumn(name = "rid")
     private Voorstelling voorstellingen;
 
     @ManyToOne(cascade = CascadeType.PERSIST)

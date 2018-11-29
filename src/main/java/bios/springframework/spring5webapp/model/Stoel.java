@@ -14,7 +14,7 @@ public class Stoel {
 
     @Id
     @Column(name= "stoelid")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long stoelid;
 
     @Column(name= "StoelNummer", unique = true,nullable=false)
