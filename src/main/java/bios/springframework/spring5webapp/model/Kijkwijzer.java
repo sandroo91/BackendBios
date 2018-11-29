@@ -13,7 +13,7 @@ public class Kijkwijzer {
 
     @Id
     @Column(name = "kwid")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long kwid;
 
     @Column(name="tekst")

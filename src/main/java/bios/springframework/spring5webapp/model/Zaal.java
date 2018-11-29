@@ -15,7 +15,7 @@ public class Zaal {
 
     @Id
     @Column(name= "zaalid",nullable=false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long zaalid;
 
     @Column(name= "Zaalnummer", unique = true,nullable=false)
@@ -42,11 +42,11 @@ public class Zaal {
     }
 
     @JsonGetter(value= "zaalid")
-    public Long getId() {
+    public Long getZaalid() {
         return zaalid;
     }
 
-    public void setId(Long id) {
+    public void setZaalid(Long id) {
         this.zaalid = id;
     }
 

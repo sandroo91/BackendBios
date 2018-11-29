@@ -1,5 +1,6 @@
 package bios.springframework.spring5webapp.controllers;
 
+import bios.springframework.spring5webapp.dao.VoorstellingDAO;
 import bios.springframework.spring5webapp.model.Zaal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -17,6 +18,9 @@ public class ZaalController {
 
     @Autowired
     ZaalDAO zaalDAO;
+
+    @Autowired
+    VoorstellingDAO voorstellingDAO;
 
 
     @PostMapping(value= "/save" , consumes = {MediaType.APPLICATION_JSON_VALUE})
@@ -47,7 +51,7 @@ public class ZaalController {
             return ResponseEntity.notFound().build();
         }
 
-        zaal.setId(zaalDetails.getId());
+        zaal.setZaalid(zaalDetails.getZaalid());
         zaal.setDrieDZaal(zaalDetails.getDrieDZaal());
         zaal.setAantalStoelen(zaalDetails.getAantalStoelen());
         zaal.setimaxZaal(zaalDetails.getimaxZaal());

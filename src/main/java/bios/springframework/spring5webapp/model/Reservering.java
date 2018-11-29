@@ -8,7 +8,7 @@ public class Reservering {
 
     @Id
     @Column(name = "reserveringid")
-    @GeneratedValue(strategy = GenerationType.AUTO )
+    @GeneratedValue(strategy = GenerationType.IDENTITY )
     private Long reserveringNummer;
 
     @Version
