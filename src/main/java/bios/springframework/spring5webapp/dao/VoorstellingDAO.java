@@ -17,6 +17,7 @@ public class VoorstellingDAO {
 
 
     public Voorstelling save(Voorstelling voorstelling){
+
         return voorstellingRepository.save(voorstelling);
     }
 

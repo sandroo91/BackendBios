@@ -1,29 +1,23 @@
 package bios.springframework.spring5webapp.model;
 
 import com.fasterxml.jackson.annotation.*;
-import org.springframework.beans.factory.annotation.Autowired;
 
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 
-/**
- * Created by mk on 21/10/18.
- */
 @Entity
-//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="filmid")
 @Table(name= "Film")
 public class Film {
 
     @Id
-    @Column(name= "id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
+    @Column(name= "filmid")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long filmid;
 
-    @Column(name= "titel",nullable=false)
+    @Column(name= "titel", unique = true,nullable=false)
     private String titel;
 
     @Column(name= "samenvatting")
@@ -35,48 +29,42 @@ public class Film {
     @Column(name="prijs")
     private double prijs;
 
-    @Column(name = "extralang")
+    @Column(name = "extralang",nullable=false)
     private boolean extralang;
 
-    @Column(name="imax")
+    @Column(name="imax",nullable=false)
     private boolean imax;
 
-    @Column(name="DDD")
+    @Column(name="DDD",nullable=false)
     private boolean DDD;
 
-    @Column(name="datumBeschikbaar")
+    @Column(name="datumBeschikbaar",nullable=false)
     private LocalDate datumBeschikbaar;
 
-    @Column(name="afloopDatum")
+    @Column(name="afloopDatum",nullable=false)
     private LocalDate afloopDatum;
 
-//    @JsonManagedReference(value="f_kw")
+    @JsonIgnore
     @ManyToMany(cascade=CascadeType.ALL, targetEntity= Kijkwijzer.class)
     @JoinTable(name="kwregel",
             joinColumns = {@JoinColumn(name = "filmid")},
             inverseJoinColumns={ @JoinColumn(name = "kwid") } )
     Set<Kijkwijzer>kijkwijzers= new HashSet<>();
 
-//    @JsonManagedReference(value="f_vrst")
-    @OneToMany(mappedBy = "film", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<Voorstelling>voorstellingen = new HashSet<>();
+    @JsonIgnore
+    @OneToMany(mappedBy = "films", cascade = CascadeType.ALL, orphanRemoval = true, targetEntity = Voorstelling.class)
+    private Set<Voorstelling> voorstellingen = new HashSet<>();
 
     public Film() {
     }
 
-
-    public Film(String titel) {
-        this.titel = titel;
+    @JsonGetter(value="filmid")
+    public Long getFilmid() {
+        return filmid;
     }
 
-    @JsonGetter(value="id")
-    public Long getId() {
-        return id;
-    }
-
-    @JsonSetter(value = "id")
-    public void setId(Long id) {
-        this.id = id;
+    public void setFilmid(Long id) {
+        this.filmid = id;
     }
 
 
@@ -160,13 +148,21 @@ public class Film {
         this.kijkwijzers = kijkwijzers;
     }
 
-    @JsonIgnore
     public Set<Voorstelling> getVoorstellingen() {
         return voorstellingen;
     }
 
-    @JsonIgnore
     public void setVoorstellingen(Set<Voorstelling> voorstellingen) {
         this.voorstellingen = voorstellingen;
+    }
+
+    public void addVoorstelling(Voorstelling voorstelling){
+        voorstelling.setFilms(this);
+        this.voorstellingen.add(voorstelling);
+    }
+
+    public void removeVoorstelling(Voorstelling voorstelling){
+        voorstelling.setFilms(null);
+        this.voorstellingen.remove(voorstelling);
     }
 }

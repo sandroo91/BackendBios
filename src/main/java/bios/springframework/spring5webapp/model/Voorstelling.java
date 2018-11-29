@@ -1,24 +1,20 @@
 package bios.springframework.spring5webapp.model;
 
 import com.fasterxml.jackson.annotation.*;
-import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Set;
 import java.util.HashSet;
-
-
+import java.util.Set;
 
 @Entity
-//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="id")
 @Table(name = "Voorstelling")
 public class Voorstelling {
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name="dag",nullable=false)
@@ -27,22 +23,24 @@ public class Voorstelling {
     @Column(name="tijd",nullable=false)
     private LocalTime tijd;
 
-//    @JsonBackReference(value="v_film")
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinColumn(name = "filmid")
-    private Film film;
+    private Film films;
 
-//    @JsonBackReference
-    @ManyToOne(cascade = CascadeType.PERSIST)
+
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinColumn(name = "zaalid")
     private Zaal zalen;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "voorstellingen", cascade = CascadeType.ALL,orphanRemoval = true, targetEntity = Reservering.class)
+    private Set<Reservering> reserveringen = new HashSet<>();
 
     public Voorstelling() {
     }
 
-    public Voorstelling(LocalDate dag, LocalTime tijd) {
-        this.dag = dag;
-        this.tijd = tijd;
+    public Voorstelling(Long id) {
+        this.id = id;
     }
 
     @JsonGetter(value = "id")
@@ -50,27 +48,23 @@ public class Voorstelling {
         return id;
     }
 
+    @JsonProperty
     public void setId(Long id) {
         this.id = id;
     }
 
-
-//    @JsonGetter(value = "titel")
     public Film getFilms() {
-        return film;
+        return films;
     }
 
-    @JsonProperty(value="film")
     public void setFilms(Film film) {
-        this.film = film;
+        this.films = film;
     }
 
-//    @JsonGetter(value = "zaalNummer")
     public Zaal getZalen() {
         return zalen;
     }
 
-    @JsonProperty(value="zalen")
     public void setZalen(Zaal zalen) {
         this.zalen = zalen;
     }
@@ -91,7 +85,28 @@ public class Voorstelling {
         this.tijd = tijd;
     }
 
-    //    public  double getKaartPrijs(Long id) {
+    public void addReservering(Reservering reservering){
+        reservering.setVoorstellingen(this);
+        this.reserveringen.add(reservering);
+    }
+
+    public void removeReservering(Reservering reservering){
+        reservering.setVoorstellingen(null);
+        this.reserveringen.remove(reservering);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Voorstelling )) return false;
+        return id != null && id.equals(((Voorstelling) o).id);
+    }
+    @Override
+    public int hashCode() {
+        return 31;
+    }
+
+//        public  double getKaartPrijs(Long id) {
 //
 //        if ((this.films.isIMAX()== true ) && (this.zalen.isIMAXZaal()) == true ){
 //            prijs ++;
