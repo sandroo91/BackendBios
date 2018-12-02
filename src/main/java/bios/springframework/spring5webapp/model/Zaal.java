@@ -1,7 +1,6 @@
 package bios.springframework.spring5webapp.model;
 
 import com.fasterxml.jackson.annotation.*;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -9,7 +8,6 @@ import java.util.Set;
 
 
 @Entity
-//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Table(name= "Zalen")
 public class Zaal {
 
@@ -31,15 +29,10 @@ public class Zaal {
     private boolean drieDZaal;
 
 //    @JsonManagedReference
-    @OneToMany(mappedBy = "zalen", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "zaal", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Voorstelling>voorstellingen = new HashSet<>();
 
     public Zaal(){
-    }
-
-
-    public Zaal(String zaalNummer) {
-        this.zaalNummer = zaalNummer;
     }
 
     @JsonGetter(value= "id")
@@ -92,5 +85,15 @@ public class Zaal {
     @JsonIgnore
     public void setVoorstellingen(Set<Voorstelling> voorstellingen) {
         this.voorstellingen = voorstellingen;
+    }
+
+    public void addVoorstelling(Voorstelling voorstelling){
+        voorstelling.setZalen(this);
+        this.voorstellingen.add(voorstelling);
+    }
+
+    public void removeVoorstelling(Voorstelling voorstelling){
+        voorstelling.setZalen(null);
+        this.voorstellingen.remove(voorstelling);
     }
 }

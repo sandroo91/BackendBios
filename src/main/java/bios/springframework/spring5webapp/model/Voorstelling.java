@@ -25,25 +25,21 @@ public class Voorstelling {
 
     @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinColumn(name = "filmid")
-    private Film films;
+    private Film film;
 
 
     @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinColumn(name = "zaalid")
-    private Zaal zalen;
+    private Zaal zaal;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "voorstellingen", cascade = CascadeType.ALL,orphanRemoval = true, targetEntity = Reservering.class)
+    @OneToMany(mappedBy = "voorstelling", cascade = CascadeType.ALL,orphanRemoval = true, targetEntity = Reservering.class)
     private Set<Reservering> reserveringen = new HashSet<>();
 
     public Voorstelling() {
     }
 
-    public Voorstelling(Long id) {
-        this.id = id;
-    }
-
-    @JsonGetter(value = "id")
+    @JsonGetter
     public Long getId() {
         return id;
     }
@@ -54,19 +50,19 @@ public class Voorstelling {
     }
 
     public Film getFilms() {
-        return films;
+        return film;
     }
 
     public void setFilms(Film film) {
-        this.films = film;
+        this.film = film;
     }
 
     public Zaal getZalen() {
-        return zalen;
+        return zaal;
     }
 
     public void setZalen(Zaal zalen) {
-        this.zalen = zalen;
+        this.zaal = zalen;
     }
 
     public LocalDate getDag() {
@@ -86,12 +82,12 @@ public class Voorstelling {
     }
 
     public void addReservering(Reservering reservering){
-        reservering.setVoorstellingen(this);
+        reservering.setVoorstelling(this);
         this.reserveringen.add(reservering);
     }
 
     public void removeReservering(Reservering reservering){
-        reservering.setVoorstellingen(null);
+        reservering.setVoorstelling(null);
         this.reserveringen.remove(reservering);
     }
 

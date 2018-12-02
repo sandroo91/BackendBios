@@ -51,7 +51,7 @@ public class ZaalController {
             return ResponseEntity.notFound().build();
         }
 
-        zaal.setZaalid(zaalDetails.getZaalid());
+        zaal.setId(zaalDetails.getId());
         zaal.setDrieDZaal(zaalDetails.getDrieDZaal());
         zaal.setAantalStoelen(zaalDetails.getAantalStoelen());
         zaal.setimaxZaal(zaalDetails.getimaxZaal());

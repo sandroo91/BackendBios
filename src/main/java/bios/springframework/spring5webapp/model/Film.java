@@ -13,9 +13,9 @@ import java.util.*;
 public class Film {
 
     @Id
-    @Column(name= "filmid")
+    @Column(name= "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long filmid;
+    private Long Id;
 
     @Column(name= "titel", unique = true,nullable=false)
     private String titel;
@@ -44,7 +44,6 @@ public class Film {
     @Column(name="afloopDatum",nullable=false)
     private LocalDate afloopDatum;
 
-    @JsonIgnore
     @ManyToMany(cascade=CascadeType.ALL, targetEntity= Kijkwijzer.class)
     @JoinTable(name="kwregel",
             joinColumns = {@JoinColumn(name = "filmid")},
@@ -52,19 +51,19 @@ public class Film {
     Set<Kijkwijzer>kijkwijzers= new HashSet<>();
 
     @JsonIgnore
-    @OneToMany(mappedBy = "films", cascade = CascadeType.ALL, orphanRemoval = true, targetEntity = Voorstelling.class)
+    @OneToMany(mappedBy = "film", cascade = CascadeType.ALL, orphanRemoval = true, targetEntity = Voorstelling.class)
     private Set<Voorstelling> voorstellingen = new HashSet<>();
 
     public Film() {
     }
 
-    @JsonGetter(value="filmid")
+    @JsonGetter
     public Long getFilmid() {
-        return filmid;
+        return Id;
     }
 
     public void setFilmid(Long id) {
-        this.filmid = id;
+        this.Id = id;
     }
 
 
