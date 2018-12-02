@@ -13,9 +13,9 @@ import java.util.*;
 public class Film {
 
     @Id
-    @Column(name= "filmid")
+    @Column(name= "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long filmid;
+    private Long id;
 
     @Column(name= "titel", unique = true,nullable=false)
     private String titel;
@@ -47,24 +47,36 @@ public class Film {
     @JsonIgnore
     @ManyToMany(cascade=CascadeType.ALL, targetEntity= Kijkwijzer.class)
     @JoinTable(name="kwregel",
-            joinColumns = {@JoinColumn(name = "filmid")},
+            joinColumns = {@JoinColumn(name = "id")},
             inverseJoinColumns={ @JoinColumn(name = "kwid") } )
     Set<Kijkwijzer>kijkwijzers= new HashSet<>();
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "films", cascade = CascadeType.ALL, orphanRemoval = true, targetEntity = Voorstelling.class)
+
+    @OneToMany(mappedBy = "film", cascade = CascadeType.MERGE)
+    @JsonManagedReference(value = "film")
     private Set<Voorstelling> voorstellingen = new HashSet<>();
 
     public Film() {
     }
 
-    @JsonGetter(value="filmid")
-    public Long getFilmid() {
-        return filmid;
+    public Film(Long id) {
+        this.id = id;
     }
 
-    public void setFilmid(Long id) {
-        this.filmid = id;
+    public Film(String titel) {
+        this.titel = titel;
+    }
+
+
+
+    @JsonGetter(value="id")
+    public Long getFilmId() {
+        return id;
+    }
+
+//    @JsonSetter(value="id")
+    public void setFilmId(Long id) {
+        this.id = id;
     }
 
 
@@ -156,11 +168,13 @@ public class Film {
         this.voorstellingen = voorstellingen;
     }
 
+    @JsonIgnore
     public void addVoorstelling(Voorstelling voorstelling){
         voorstelling.setFilms(this);
         this.voorstellingen.add(voorstelling);
     }
 
+    @JsonIgnore
     public void removeVoorstelling(Voorstelling voorstelling){
         voorstelling.setFilms(null);
         this.voorstellingen.remove(voorstelling);

@@ -9,17 +9,16 @@ import java.util.Set;
 
 
 @Entity
-//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Table(name= "Zalen")
 public class Zaal {
 
     @Id
     @Column(name= "id",nullable=false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name= "Zaalnummer",nullable=false)
-    private String zaalNummer;
+    private Integer zaalNummer;
 
     @Column(name= "aantalStoelen")
     private Long aantalStoelen;
@@ -30,33 +29,33 @@ public class Zaal {
     @Column(name="drieDZaal")
     private boolean drieDZaal;
 
-//    @JsonManagedReference
-    @OneToMany(mappedBy = "zalen", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+
+    @OneToMany(mappedBy = "zalen", cascade = CascadeType.MERGE)
+    @JsonManagedReference(value = "zalen")
     private Set<Voorstelling>voorstellingen = new HashSet<>();
 
     public Zaal(){
     }
 
-
-    public Zaal(String zaalNummer) {
-        this.zaalNummer = zaalNummer;
-    }
-
-    @JsonGetter(value= "id")
-    public Long getId() {
-        return id;
-    }
-
-    @JsonSetter(value = "id")
-    public void setId(Long id) {
+    public Zaal(Long id) {
         this.id = id;
     }
 
-    public String getZaalNummer() {
+    @JsonGetter(value= "id")
+    public Long getZaalId() {
+        return id;
+    }
+
+//    @JsonSetter(value = "id")
+    public void setZaalId(Long id) {
+        this.id = id;
+    }
+
+    public Integer getZaalNummer() {
         return zaalNummer;
     }
 
-    public void setzaalNummer(String zaalNummer) {
+    public void setzaalNummer(Integer zaalNummer) {
         this.zaalNummer = zaalNummer;
     }
 
