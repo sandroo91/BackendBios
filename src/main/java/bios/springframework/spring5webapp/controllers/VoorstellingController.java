@@ -31,11 +31,11 @@ public class VoorstellingController {
     @PostMapping(value= "/save" , consumes = {MediaType.APPLICATION_JSON_VALUE})
         public Voorstelling createVoorstelling(@Valid @RequestBody Voorstelling voorstelling){
 
-            Film f = filmDAO.findById(voorstelling.getFilms().getFilmid());
-            Zaal z = zaalDAO.findById(voorstelling.getZalen().getZaalid());
-
-            f.addVoorstelling(voorstelling);    // dubbel werk ? film zit al in voorstelling toch ?
-            z.addVoorstelling(voorstelling);    // maargoed, voor de zekerheid toegevoegd aan de hashmaps
+//            Film f = filmDAO.findById(voorstelling.getFilms().getFilmid());
+//            Zaal z = zaalDAO.findById(voorstelling.getZalen().getId());
+//
+//            f.addVoorstelling(voorstelling);    // dubbel werk ? film zit al in voorstelling toch ?
+//            z.addVoorstelling(voorstelling);    // maargoed, voor de zekerheid toegevoegd aan de hashmaps
                                                 // zodat de relatie bekend is
         return voorstellingDAO.save(voorstelling);
     }
