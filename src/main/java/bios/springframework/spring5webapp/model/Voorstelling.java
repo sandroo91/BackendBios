@@ -36,7 +36,7 @@ public class Voorstelling {
     private Zaal zalen;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "voorstellingen", cascade = CascadeType.ALL,orphanRemoval = true, targetEntity = Reservering.class)
+    @OneToMany(mappedBy = "voorstelling", cascade = CascadeType.ALL,orphanRemoval = true, targetEntity = Reservering.class)
     private Set<Reservering> reserveringen = new HashSet<>();
 
     public Voorstelling() {
@@ -53,6 +53,7 @@ public class Voorstelling {
         this.id = id;
     }
 
+    @JsonGetter(value = "film")
     public Film getFilms() {
         return film;
     }
@@ -62,6 +63,7 @@ public class Voorstelling {
         this.film = film;
     }
 
+    @JsonGetter(value = "zalen")
     public Zaal getZalen() {
         return zalen;
     }
@@ -87,12 +89,12 @@ public class Voorstelling {
     }
 
     public void addReservering(Reservering reservering){
-        reservering.setVoorstellingen(this);
+        reservering.setVoorstelling(this);
         this.reserveringen.add(reservering);
     }
 
     public void removeReservering(Reservering reservering){
-        reservering.setVoorstellingen(null);
+        reservering.setVoorstelling(null);
         this.reserveringen.remove(reservering);
     }
 
