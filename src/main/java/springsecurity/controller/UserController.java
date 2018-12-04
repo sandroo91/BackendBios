@@ -1,10 +1,7 @@
 package springsecurity.controller;
 
-import org.apache.catalina.User;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
@@ -13,7 +10,7 @@ import java.util.Base64;
 @RestController
 @CrossOrigin
 public class UserController {
-    @RequestMapping("/login")
+    @PostMapping("/login")
     public boolean login(@RequestBody User user) {
         return
                 user.getUsername().equals("user") && user.getPassword().equals("password");
