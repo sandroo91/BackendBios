@@ -12,9 +12,9 @@ import javax.persistence.*;
 public class Kijkwijzer {
 
     @Id
-    @Column(name = "kwid")
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long kwid;
+    private Long Id;
 
     @Column(name="tekst")
     private String tekst;
@@ -27,12 +27,12 @@ public class Kijkwijzer {
 
     @JsonGetter(value="kwid")
     public Long getKwid() {
-        return kwid;
+        return Id;
     }
 
     @JsonProperty
     public void setKwid(Long kwid) {
-        this.kwid = kwid;
+        this.Id = kwid;
     }
 
     public String getTekst() {

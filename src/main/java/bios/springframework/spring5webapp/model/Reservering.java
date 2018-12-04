@@ -7,20 +7,20 @@ import javax.persistence.*;
 public class Reservering {
 
     @Id
-    @Column(name = "reserveringid")
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY )
-    private Long reserveringNummer;
+    private Long Id;
 
     @Version
     private int version;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "rid")
-    private Voorstelling voorstellingen;
+    private Voorstelling voorstelling;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "stoelid")
-    private Stoel stoelen;
+    private Stoel stoel;
 
     @Column(name= "email",nullable=false)
     private String emailAdres;
@@ -29,11 +29,11 @@ public class Reservering {
     }
 
     public Long getId() {
-        return reserveringNummer;
+        return Id;
     }
 
     public void setId(Long id) {
-        this.reserveringNummer = id;
+        this.Id = id;
     }
 
     public int getVersion() {
@@ -44,20 +44,20 @@ public class Reservering {
         this.version = version;
     }
 
-    public Voorstelling getVoorstellingen() {
-        return voorstellingen;
+    public Voorstelling getVoorstelling() {
+        return voorstelling;
     }
 
-    public void setVoorstellingen(Voorstelling voorstellingen) {
-        this.voorstellingen = voorstellingen;
+    public void setVoorstelling(Voorstelling voorstelling) {
+        this.voorstelling = voorstelling;
     }
 
-    public Stoel getStoelen() {
-        return stoelen;
+    public Stoel getStoel() {
+        return stoel;
     }
 
-    public void setStoelen(Stoel stoelen) {
-        this.stoelen = stoelen;
+    public void setStoel(Stoel stoelen) {
+        this.stoel = stoelen;
     }
 
     public String getEmailAdres(){

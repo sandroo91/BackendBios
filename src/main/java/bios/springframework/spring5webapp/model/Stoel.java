@@ -13,9 +13,9 @@ import java.util.Set;
 public class Stoel {
 
     @Id
-    @Column(name= "stoelid")
+    @Column(name= "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long stoelid;
+    private Long Id;
 
     @Column(name= "StoelNummer", unique = true,nullable=false)
     private Long stoelNummer;
@@ -25,11 +25,11 @@ public class Stoel {
     }
 
     public Long getId() {
-        return stoelid;
+        return Id;
     }
 
     public void setId(Long id) {
-        this.stoelid = id;
+        this.Id = id;
     }
 
     public Long getstoelNummer() {

@@ -20,7 +20,7 @@ public class FilmController {
 
 
     @PostMapping(value= "/save" , consumes = {MediaType.APPLICATION_JSON_VALUE})
-    public Film createVoorstelling(@Valid @RequestBody Film film){
+    public Film createFilm(@Valid @RequestBody Film film){
         return filmDAO.save(film);
     }
 
@@ -48,7 +48,7 @@ public class FilmController {
             return ResponseEntity.notFound().build();
         }
 
-        film.setFilmid(filmDetails.getFilmid());
+        film.setFilmId(filmDetails.getFilmId());
         film.setAfloopDatum(filmDetails.getAfloopDatum());
         film.setDatumBeschikbaar(filmDetails.getDatumBeschikbaar());
         film.setTitel(filmDetails.getTitel());

@@ -1,6 +1,7 @@
 package bios.springframework.spring5webapp.model;
 
 import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -23,44 +24,46 @@ public class Voorstelling {
     @Column(name="tijd",nullable=false)
     private LocalTime tijd;
 
-    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "filmid")
-    private Film films;
+    @JsonBackReference(value = "film")
+    private Film film;
 
 
-    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "zaalid")
+    @JsonBackReference(value = "zalen")
     private Zaal zalen;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "voorstellingen", cascade = CascadeType.ALL,orphanRemoval = true, targetEntity = Reservering.class)
+    @OneToMany(mappedBy = "voorstelling", cascade = CascadeType.ALL,orphanRemoval = true, targetEntity = Reservering.class)
     private Set<Reservering> reserveringen = new HashSet<>();
 
     public Voorstelling() {
     }
 
-    public Voorstelling(Long id) {
-        this.id = id;
-    }
 
     @JsonGetter(value = "id")
     public Long getId() {
         return id;
     }
 
-    @JsonProperty
+
     public void setId(Long id) {
         this.id = id;
     }
 
+    @JsonGetter(value = "film")
     public Film getFilms() {
-        return films;
+        return film;
     }
 
+    @JsonSetter(value="film")
     public void setFilms(Film film) {
-        this.films = film;
+        this.film = film;
     }
 
+    @JsonGetter(value = "zalen")
     public Zaal getZalen() {
         return zalen;
     }
@@ -86,12 +89,12 @@ public class Voorstelling {
     }
 
     public void addReservering(Reservering reservering){
-        reservering.setVoorstellingen(this);
+        reservering.setVoorstelling(this);
         this.reserveringen.add(reservering);
     }
 
     public void removeReservering(Reservering reservering){
-        reservering.setVoorstellingen(null);
+        reservering.setVoorstelling(null);
         this.reserveringen.remove(reservering);
     }
 

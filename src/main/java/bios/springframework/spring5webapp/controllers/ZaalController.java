@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import javax.validation.Valid;
 import java.util.List;
 
-@CrossOrigin(origins = { "http://localhost:8080",  "http://localhost:8082", "http://localhost:8083", "http://localhost:1433"})
+@CrossOrigin(origins = { "http://localhost:8080",  "http://localhost:8081", "http://localhost:1433"})
 @RestController
 @RequestMapping("/Zaal")
 public class ZaalController {
@@ -51,7 +51,7 @@ public class ZaalController {
             return ResponseEntity.notFound().build();
         }
 
-        zaal.setId(zaalDetails.getId());
+        zaal.setZaalId(zaalDetails.getZaalId());
         zaal.setDrieDZaal(zaalDetails.getDrieDZaal());
         zaal.setAantalStoelen(zaalDetails.getAantalStoelen());
         zaal.setimaxZaal(zaalDetails.getimaxZaal());
