@@ -1,10 +1,6 @@
 package bios.springframework.spring5webapp.controllers;
 
-import bios.springframework.spring5webapp.dao.FilmDAO;
-import bios.springframework.spring5webapp.dao.ZaalDAO;
-import bios.springframework.spring5webapp.model.Film;
 import bios.springframework.spring5webapp.model.Voorstelling;
-import bios.springframework.spring5webapp.model.Zaal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -22,6 +18,7 @@ public class VoorstellingController {
 
     @Autowired
     VoorstellingDAO voorstellingDAO;
+
 
     @PostMapping(value= "/save" , consumes = {MediaType.APPLICATION_JSON_VALUE})
         public Voorstelling createVoorstelling(@Valid @RequestBody Voorstelling voorstelling){
