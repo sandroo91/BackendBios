@@ -21,10 +21,6 @@ public class Reservering {
     @JoinColumn(name = "rid")
     private Voorstelling voorstelling;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "stoelid")
-    private Stoel stoel;
-
     @Column(name= "email",nullable=false)
     private String emailAdres;
 
@@ -54,14 +50,6 @@ public class Reservering {
 
     public void setVoorstelling(Voorstelling voorstelling) {
         this.voorstelling = voorstelling;
-    }
-
-    public Stoel getStoel() {
-        return stoel;
-    }
-
-    public void setStoel(Stoel stoelen) {
-        this.stoel = stoelen;
     }
 
     public String getEmailAdres(){
