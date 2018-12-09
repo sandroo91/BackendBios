@@ -49,10 +49,10 @@ public class Film {
     @JoinTable(name="kwregel",
             joinColumns = {@JoinColumn(name = "id")},
             inverseJoinColumns={ @JoinColumn(name = "kwid") } )
-    Set<Kijkwijzer>kijkwijzers= new HashSet<>();
+    private Set<Kijkwijzer>kijkwijzers= new HashSet<>();
 
 
-    @OneToMany(mappedBy = "film", cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "film", cascade = CascadeType.PERSIST)
     @JsonManagedReference(value = "film")
     private Set<Voorstelling> voorstellingen = new HashSet<>();
 

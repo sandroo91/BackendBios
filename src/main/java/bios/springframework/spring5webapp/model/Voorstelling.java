@@ -2,6 +2,8 @@ package bios.springframework.spring5webapp.model;
 
 import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -24,19 +26,19 @@ public class Voorstelling {
     @Column(name="tijd",nullable=false)
     private LocalTime tijd;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne
     @JoinColumn(name = "filmid")
     @JsonBackReference(value = "film")
     private Film film;
 
 
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne
     @JoinColumn(name = "zaalid")
     @JsonBackReference(value = "zalen")
     private Zaal zalen;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "voorstelling", cascade = CascadeType.ALL,orphanRemoval = true, targetEntity = Reservering.class)
+    @OneToMany(mappedBy = "voorstelling", cascade = CascadeType.ALL, targetEntity = Reservering.class)
+    @JsonManagedReference(value = "reservering")
     private Set<Reservering> reserveringen = new HashSet<>();
 
     public Voorstelling() {

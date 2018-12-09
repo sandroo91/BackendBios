@@ -23,16 +23,8 @@ public class VoorstellingController {
     @Autowired
     VoorstellingDAO voorstellingDAO;
 
-    @Autowired
-    FilmDAO filmDAO;
-
-    @Autowired    ZaalDAO zaalDAO;
-
     @PostMapping(value= "/save" , consumes = {MediaType.APPLICATION_JSON_VALUE})
         public Voorstelling createVoorstelling(@Valid @RequestBody Voorstelling voorstelling){
-        voorstelling.setZalen(zaalDAO.findById(voorstelling.getZalen().getZaalId()));
-        voorstelling.setFilms(filmDAO.findById(voorstelling.getFilms().getFilmId()));
-
         return voorstellingDAO.save(voorstelling);
     }
 

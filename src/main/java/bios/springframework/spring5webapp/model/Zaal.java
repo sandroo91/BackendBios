@@ -30,7 +30,7 @@ public class Zaal {
     private boolean drieDZaal;
 
 
-    @OneToMany(mappedBy = "zalen", cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "zalen", cascade = CascadeType.PERSIST)
     @JsonManagedReference(value = "zalen")
     private Set<Voorstelling>voorstellingen = new HashSet<>();
 
