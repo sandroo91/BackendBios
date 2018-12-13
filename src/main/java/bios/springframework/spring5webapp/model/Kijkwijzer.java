@@ -2,6 +2,7 @@ package bios.springframework.spring5webapp.model;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSetter;
 
 import javax.persistence.Entity;
 import javax.persistence.*;
@@ -19,7 +20,7 @@ public class Kijkwijzer {
     @Column(name="tekst")
     private String tekst;
 
-    @Column(name="symbool")
+    @Column(name="symbool", length = 3000)
     private String symbool;
 
     public Kijkwijzer() {
@@ -30,7 +31,7 @@ public class Kijkwijzer {
         return Id;
     }
 
-    @JsonProperty
+    @JsonSetter(value="kwid")
     public void setKwid(Long kwid) {
         this.Id = kwid;
     }

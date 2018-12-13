@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -38,6 +39,7 @@ public class Voorstelling {
     @JsonIgnore
     @OneToMany(mappedBy = "voorstelling", cascade = CascadeType.ALL,orphanRemoval = true, targetEntity = Reservering.class)
     private Set<Reservering> reserveringen = new HashSet<>();
+
 
     public Voorstelling() {
     }
@@ -109,6 +111,12 @@ public class Voorstelling {
         return 31;
     }
 
+    public String toString() {
+        return "Voorstelling [id=" + id + ", dag=" + dag + ", tijd=" + tijd
+                + ", film=" + film + ", zaal=" + zalen + "]";
+    }
+}
+
 //        public  double getKaartPrijs(Long id) {
 //
 //        if ((this.films.isIMAX()== true ) && (this.zalen.isIMAXZaal()) == true ){
@@ -122,7 +130,7 @@ public class Voorstelling {
 //        }
 //        return prijs;
 //    }
-}
+
 
 
 

@@ -20,10 +20,10 @@ public class Film {
     @Column(name= "titel", unique = true,nullable=false)
     private String titel;
 
-    @Column(name= "samenvatting")
+    @Column(name= "samenvatting", length=2000)
     private String samenvatting;
 
-    @Column(name= "poster")
+    @Column(name= "poster", length=2000)
     private String poster;
 
     @Column(name="prijs")
@@ -44,12 +44,11 @@ public class Film {
     @Column(name="afloopDatum",nullable=false)
     private LocalDate afloopDatum;
 
-    @JsonIgnore
     @ManyToMany(cascade=CascadeType.ALL, targetEntity= Kijkwijzer.class)
     @JoinTable(name="kwregel",
-            joinColumns = {@JoinColumn(name = "id")},
+            joinColumns = {@JoinColumn(name = "fid")},
             inverseJoinColumns={ @JoinColumn(name = "kwid") } )
-    Set<Kijkwijzer>kijkwijzers= new HashSet<>();
+    private Set<Kijkwijzer>kijkwijzers= new HashSet<>();
 
 
     @OneToMany(mappedBy = "film", cascade = CascadeType.MERGE)

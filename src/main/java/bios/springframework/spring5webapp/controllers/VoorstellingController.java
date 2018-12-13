@@ -5,15 +5,18 @@ import bios.springframework.spring5webapp.dao.ZaalDAO;
 import bios.springframework.spring5webapp.model.Film;
 import bios.springframework.spring5webapp.model.Voorstelling;
 import bios.springframework.spring5webapp.model.Zaal;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import bios.springframework.spring5webapp.dao.VoorstellingDAO;
 
 import javax.validation.Valid;
-import java.util.List;
+import java.util.*;
 
 @CrossOrigin(origins = { "http://localhost:8080",  "http://localhost:8081", "http://localhost:1433"})
 @RestController
@@ -26,7 +29,14 @@ public class VoorstellingController {
     @Autowired
     FilmDAO filmDAO;
 
-    @Autowired    ZaalDAO zaalDAO;
+    @Autowired
+    ZaalDAO zaalDAO;
+
+    @GetMapping(value = "/getFilmZaal")
+    public List<Voorstelling> findFilms() {
+        return voorstellingDAO.findFilmZaal();
+    }
+
 
     @PostMapping(value= "/save" , consumes = {MediaType.APPLICATION_JSON_VALUE})
         public Voorstelling createVoorstelling(@Valid @RequestBody Voorstelling voorstelling){
