@@ -47,7 +47,6 @@ public class ReserveringController {
             return ResponseEntity.notFound().build();
         }
         reservering.setEmailAdres(reserveringDetails.getEmailAdres());
-//        reservering.setStoel(reserveringDetails.getStoel());
         reservering.setVoorstelling(reserveringDetails.getVoorstelling());
 
         Reservering updateReservering= reserveringDAO.save(reservering);

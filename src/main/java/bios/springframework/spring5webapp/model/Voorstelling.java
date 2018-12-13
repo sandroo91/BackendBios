@@ -39,8 +39,8 @@ public class Voorstelling {
     private Set<Reservering> reserveringen = new HashSet<>();
 
     public Voorstelling() {
-    }
 
+    }
 
     @JsonGetter(value = "id")
     public Long getId() {
