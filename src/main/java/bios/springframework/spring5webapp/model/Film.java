@@ -44,8 +44,8 @@ public class Film {
     @Column(name="afloopDatum",nullable=false)
     private LocalDate afloopDatum;
 
+    @ManyToMany(cascade=CascadeType.MERGE, targetEntity= Kijkwijzer.class)
     @JsonIgnore
-    @ManyToMany(cascade=CascadeType.ALL, targetEntity= Kijkwijzer.class)
     @JoinTable(name="kwregel",
             joinColumns = {@JoinColumn(name = "id")},
             inverseJoinColumns={ @JoinColumn(name = "kwid") } )
@@ -178,5 +178,17 @@ public class Film {
     public void removeVoorstelling(Voorstelling voorstelling){
         voorstelling.setFilms(null);
         this.voorstellingen.remove(voorstelling);
+    }
+
+    @JsonIgnore
+    public void addFilmen(Kijkwijzer kijkwijzer){
+        kijkwijzer.getFilms().add(this);
+        this.kijkwijzers.add(kijkwijzer);
+    }
+
+    @JsonIgnore
+    public void removeFilmen(Kijkwijzer kijkwijzer){
+        kijkwijzer.setFilms(null);
+        this.kijkwijzers.remove(kijkwijzer);
     }
 }

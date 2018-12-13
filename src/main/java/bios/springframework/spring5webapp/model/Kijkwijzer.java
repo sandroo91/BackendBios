@@ -1,10 +1,14 @@
 package bios.springframework.spring5webapp.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.Entity;
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity
@@ -22,9 +26,16 @@ public class Kijkwijzer {
     @Column(name="symbool")
     private String symbool;
 
+    @JsonIgnore
+    @ManyToMany(mappedBy="kijkwijzers")
+    private Set<Film> filmen = new HashSet<Film>();
+
     public Kijkwijzer() {
     }
 
+    public Kijkwijzer(Long Id) {
+        this.Id = Id;
+    }
     @JsonGetter(value="kwid")
     public Long getKwid() {
         return Id;
@@ -51,4 +62,23 @@ public class Kijkwijzer {
         this.symbool = symbool;
     }
 
+    public Set<Film> getFilms() {
+        return filmen;
+    }
+
+    public void setFilms(Set<Film> films) {
+        this.filmen = films;
+    }
+
+    @JsonIgnore
+    public void addFilm(Film film){
+        film.getKijkwijzers().add(this);
+        this.filmen.add(film);
+    }
+
+    @JsonIgnore
+    public void removeFilm(Film film){
+        film.setKijkwijzers(null);
+        this.filmen.remove(film);
+    }
 }
