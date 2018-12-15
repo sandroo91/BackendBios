@@ -31,7 +31,7 @@ public class Zaal {
 
 
     @OneToMany(mappedBy = "zalen", cascade = CascadeType.PERSIST)
-    @JsonManagedReference(value = "zalen")
+    @JsonIgnoreProperties(value = "zalen")
     private Set<Voorstelling>voorstellingen = new HashSet<>();
 
     public Zaal(){

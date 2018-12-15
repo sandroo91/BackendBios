@@ -44,16 +44,16 @@ public class Film {
     @Column(name="afloopDatum",nullable=false)
     private LocalDate afloopDatum;
 
-    @ManyToMany(cascade=CascadeType.MERGE, targetEntity= Kijkwijzer.class)
-    @JsonIgnore
+    @ManyToMany(cascade=CascadeType.MERGE)
     @JoinTable(name="kwregel",
-            joinColumns = {@JoinColumn(name = "id")},
-            inverseJoinColumns={ @JoinColumn(name = "kwid") } )
+            joinColumns = {@JoinColumn(name = "id", referencedColumnName = "id")},
+            inverseJoinColumns={ @JoinColumn(name = "kwid", referencedColumnName = "id") } )
+    @JsonIgnoreProperties(value = "films")
     private Set<Kijkwijzer>kijkwijzers= new HashSet<>();
 
 
     @OneToMany(mappedBy = "film", cascade = CascadeType.PERSIST)
-    @JsonManagedReference(value = "film")
+    @JsonIgnoreProperties(value = "film")
     private Set<Voorstelling> voorstellingen = new HashSet<>();
 
     public Film() {

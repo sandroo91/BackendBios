@@ -37,6 +37,6 @@ public class VoorstellingDAO {
     }
 
     public List<Voorstelling> findFilmZaal() {
-        return voorstellingRepository.getInfoFilmZaal();
-    }
- }
+    return voorstellingRepository.getInfoFilmZaal();
+}
+}

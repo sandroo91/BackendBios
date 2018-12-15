@@ -26,13 +26,13 @@ public class Voorstelling {
 
     @ManyToOne
     @JoinColumn(name = "filmid")
-    @JsonBackReference(value = "film")
+    @JsonIgnoreProperties(value = "voorstellingen")
     private Film film;
 
 
     @ManyToOne
     @JoinColumn(name = "zaalid")
-    @JsonBackReference(value = "zalen")
+    @JsonIgnoreProperties(value = "voorstellingen")
     private Zaal zalen;
 
     @OneToMany(mappedBy = "voorstelling", cascade = CascadeType.ALL, targetEntity = Reservering.class)
