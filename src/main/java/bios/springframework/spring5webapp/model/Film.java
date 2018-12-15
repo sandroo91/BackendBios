@@ -20,10 +20,10 @@ public class Film {
     @Column(name= "titel", unique = true,nullable=false)
     private String titel;
 
-    @Column(name= "samenvatting", length=2000)
+    @Column(name= "samenvatting")
     private String samenvatting;
 
-    @Column(name= "poster", length=2000)
+    @Column(name= "poster")
     private String poster;
 
     @Column(name="prijs")
@@ -44,14 +44,15 @@ public class Film {
     @Column(name="afloopDatum",nullable=false)
     private LocalDate afloopDatum;
 
-    @ManyToMany(cascade=CascadeType.ALL, targetEntity= Kijkwijzer.class)
+    @ManyToMany(cascade=CascadeType.MERGE, targetEntity= Kijkwijzer.class)
+    @JsonIgnore
     @JoinTable(name="kwregel",
-            joinColumns = {@JoinColumn(name = "fid")},
+            joinColumns = {@JoinColumn(name = "id")},
             inverseJoinColumns={ @JoinColumn(name = "kwid") } )
     private Set<Kijkwijzer>kijkwijzers= new HashSet<>();
 
 
-    @OneToMany(mappedBy = "film", cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "film", cascade = CascadeType.PERSIST)
     @JsonManagedReference(value = "film")
     private Set<Voorstelling> voorstellingen = new HashSet<>();
 
@@ -177,5 +178,17 @@ public class Film {
     public void removeVoorstelling(Voorstelling voorstelling){
         voorstelling.setFilms(null);
         this.voorstellingen.remove(voorstelling);
+    }
+
+    @JsonIgnore
+    public void addFilmen(Kijkwijzer kijkwijzer){
+        kijkwijzer.getFilms().add(this);
+        this.kijkwijzers.add(kijkwijzer);
+    }
+
+    @JsonIgnore
+    public void removeFilmen(Kijkwijzer kijkwijzer){
+        kijkwijzer.setFilms(null);
+        this.kijkwijzers.remove(kijkwijzer);
     }
 }

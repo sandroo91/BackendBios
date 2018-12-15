@@ -10,7 +10,7 @@ import bios.springframework.spring5webapp.dao.ReserveringDAO;
 import javax.validation.Valid;
 import java.util.List;
 
-@CrossOrigin(origins = { "http://localhost:8080",  "http://localhost:8081", "http://localhost:1433"})
+@CrossOrigin(origins = { "http://localhost:8080",  "http://localhost:8081", "http://localhost:8082", "http://localhost:8083", "http://localhost:1433"})
 @RestController
 @RequestMapping("/reservering")
 public class ReserveringController {
@@ -47,7 +47,6 @@ public class ReserveringController {
             return ResponseEntity.notFound().build();
         }
         reservering.setEmailAdres(reserveringDetails.getEmailAdres());
-        reservering.setStoel(reserveringDetails.getStoel());
         reservering.setVoorstelling(reserveringDetails.getVoorstelling());
 
         Reservering updateReservering= reserveringDAO.save(reservering);
