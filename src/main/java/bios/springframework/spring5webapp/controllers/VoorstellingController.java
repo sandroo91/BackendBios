@@ -18,19 +18,13 @@ import bios.springframework.spring5webapp.dao.VoorstellingDAO;
 import javax.validation.Valid;
 import java.util.*;
 
-@CrossOrigin(origins = { "http://localhost:8080",  "http://localhost:8081", "http://localhost:8082", "http://localhost:1433"})
+@CrossOrigin(origins = {"*", "http://localhost:8080",  "http://localhost:8081", "http://localhost:8082", "http://localhost:1433"})
 @RestController
 @RequestMapping("/voorstelling")
 public class VoorstellingController {
 
     @Autowired
     VoorstellingDAO voorstellingDAO;
-
-    @Autowired
-    FilmDAO filmDAO;
-
-    @Autowired
-    ZaalDAO zaalDAO;
 
     @GetMapping(value = "/getFilmZaal")
     public List<Voorstelling> findFilms() {
@@ -40,8 +34,6 @@ public class VoorstellingController {
 
     @PostMapping(value= "/save" , consumes = {MediaType.APPLICATION_JSON_VALUE})
         public Voorstelling createVoorstelling(@Valid @RequestBody Voorstelling voorstelling){
-        voorstelling.setZalen(zaalDAO.findById(voorstelling.getZalen().getZaalId()));
-        voorstelling.setFilms(filmDAO.findById(voorstelling.getFilms().getFilmId()));
 
         return voorstellingDAO.save(voorstelling);
     }

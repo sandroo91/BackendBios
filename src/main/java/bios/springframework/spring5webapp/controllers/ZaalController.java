@@ -11,17 +11,13 @@ import org.springframework.http.ResponseEntity;
 import javax.validation.Valid;
 import java.util.List;
 
-@CrossOrigin(origins = { "http://localhost:8080",  "http://localhost:8081", "http://localhost:8082", "http://localhost:1433"})
+@CrossOrigin(origins = {"*", "http://localhost:8080",  "http://localhost:8081", "http://localhost:8082", "http://localhost:1433"})
 @RestController
 @RequestMapping("/Zaal")
 public class ZaalController {
 
     @Autowired
     ZaalDAO zaalDAO;
-
-    @Autowired
-    VoorstellingDAO voorstellingDAO;
-
 
     @PostMapping(value= "/save" , consumes = {MediaType.APPLICATION_JSON_VALUE})
     public Zaal createZaal(@Valid @RequestBody Zaal zaal){
