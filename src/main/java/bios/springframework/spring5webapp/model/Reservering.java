@@ -24,6 +24,9 @@ public class Reservering {
     @Column(name= "email",nullable=false)
     private String emailAdres;
 
+    @Column(name = "aantalKaartjes", nullable=false)
+    private int aantalKaartjes;
+
 
     public Reservering() {
     }
@@ -60,6 +63,13 @@ public class Reservering {
         this.emailAdres = emailAdres;
     }
 
+    public int getAantalKaartjes() {
+        return aantalKaartjes;
+    }
+
+    public void setAantalKaartjes(int aantalKaartjes) {
+        this.aantalKaartjes = aantalKaartjes;
+    }
 }
 
 
