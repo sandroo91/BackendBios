@@ -18,7 +18,7 @@ import bios.springframework.spring5webapp.dao.VoorstellingDAO;
 import javax.validation.Valid;
 import java.util.*;
 
-@CrossOrigin(origins = { "http://localhost:8080",  "http://localhost:8081", "http://localhost:1433"})
+@CrossOrigin(origins = { "http://localhost:8080",  "http://localhost:8081", "http://localhost:8082", "http://localhost:1433"})
 @RestController
 @RequestMapping("/voorstelling")
 public class VoorstellingController {
