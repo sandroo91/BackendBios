@@ -26,6 +26,12 @@ public class Film {
     @Column(name= "poster", length = 3000)
     private String poster;
 
+    @Column(name = "genre")
+    private String genre;
+
+    @Column(name = "speelduur")
+    private Integer speelduur;
+
     @Column(name="prijs")
     private double prijs;
 
@@ -102,6 +108,22 @@ public class Film {
 
     public void setPoster(String poster){
         this.poster = poster;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
+    public Integer getSpeelduur() {
+        return speelduur;
+    }
+
+    public void setSpeelduur(Integer speelduur) {
+        this.speelduur = speelduur;
     }
 
     public double getPrijs() {
