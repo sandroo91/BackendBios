@@ -9,16 +9,17 @@
 //import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 //import org.springframework.security.crypto.password.PasswordEncoder;
-//import org.springframework.security.web.AuthenticationEntryPoint;
 //import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 //import springsecurity.auth.CustomSimpleUrlAuthenticationSuccessHandler;
+//import springsecurity.auth.RestAuthenticationEntryPoint;
+//
 //
 //@Configuration
 //@EnableWebSecurity
 //public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //
 //    @Autowired
-//    private AuthenticationEntryPoint restAuthenticationEntryPoint;
+//    private RestAuthenticationEntryPoint restAuthenticationEntryPoint = new RestAuthenticationEntryPoint();
 //    private CustomSimpleUrlAuthenticationSuccessHandler mySuccessHandler = new CustomSimpleUrlAuthenticationSuccessHandler();
 //    private SimpleUrlAuthenticationFailureHandler myFailureHandler = new SimpleUrlAuthenticationFailureHandler();
 //

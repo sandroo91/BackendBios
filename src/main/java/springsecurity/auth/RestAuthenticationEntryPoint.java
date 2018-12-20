@@ -10,7 +10,7 @@
 //import java.io.IOException;
 //
 //@Component
-//public final class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
+//public class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
 //
 //	@Override
 //	public void commence(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,

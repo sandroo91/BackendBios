@@ -20,10 +20,10 @@ public class Film {
     @Column(name= "titel", unique = true,nullable=false)
     private String titel;
 
-    @Column(name= "samenvatting")
+    @Column(name= "samenvatting", length = 3000)
     private String samenvatting;
 
-    @Column(name= "poster")
+    @Column(name= "poster", length = 3000)
     private String poster;
 
     @Column(name="prijs")
@@ -46,13 +46,13 @@ public class Film {
 
     @ManyToMany(cascade=CascadeType.MERGE)
     @JoinTable(name="kwregel",
-            joinColumns = {@JoinColumn(name = "id", referencedColumnName = "id")},
+            joinColumns = {@JoinColumn(name = "fid", referencedColumnName = "id")},
             inverseJoinColumns={ @JoinColumn(name = "kwid", referencedColumnName = "id") } )
     @JsonIgnoreProperties(value = "films")
     private Set<Kijkwijzer>kijkwijzers= new HashSet<>();
 
 
-    @OneToMany(mappedBy = "film", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "film", cascade = CascadeType.MERGE)
     @JsonIgnoreProperties(value = "film")
     private Set<Voorstelling> voorstellingen = new HashSet<>();
 
