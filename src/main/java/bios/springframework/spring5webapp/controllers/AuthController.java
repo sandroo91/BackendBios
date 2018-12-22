@@ -12,7 +12,7 @@ import java.util.List;
 
 @CrossOrigin(origins = { "*","http://localhost:8080",  "http://localhost:8081", "http://localhost:8082", "http://localhost:1433"})
 @RestController
-@RequestMapping("/Auth")
+@RequestMapping("/api")
 public class AuthController {
 
     @Autowired
