@@ -1,6 +1,7 @@
 package bios.springframework.spring5webapp.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 
@@ -16,9 +17,9 @@ public class Reservering {
     @Version
     private int version;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JsonBackReference(value = "reservering")
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "rid")
+    @JsonIgnoreProperties(value = "reserveringen")
     private Voorstelling voorstelling;
 
     @Column(name= "email",nullable=false)
@@ -30,6 +31,11 @@ public class Reservering {
 
     public Reservering() {
     }
+
+    public Reservering(Long Id){
+        this.Id=Id;
+    }
+
 
     public Long getId() {
         return Id;

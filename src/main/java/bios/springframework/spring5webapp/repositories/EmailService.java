@@ -1,4 +1,4 @@
-package bios.springframework.spring5webapp.repositories;
-
-public interface EmailService {
-}
+//package bios.springframework.spring5webapp.repositories;
+//
+//public interface EmailService {
+//}

@@ -35,13 +35,17 @@ public class Voorstelling {
     @JsonIgnoreProperties(value = "voorstellingen")
     private Zaal zalen;
 
-    @OneToMany(mappedBy = "voorstelling", cascade = CascadeType.ALL, targetEntity = Reservering.class)
-    @JsonManagedReference(value = "reservering")
+    @OneToMany(mappedBy = "voorstelling", cascade = CascadeType.MERGE)
+    @JsonIgnoreProperties(value = "voorstelling")
     private Set<Reservering> reserveringen = new HashSet<>();
 
 
     public Voorstelling() {
 
+    }
+
+    public Voorstelling(Long id){
+        this.id = id;
     }
 
     @JsonGetter(value = "id")
