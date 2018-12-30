@@ -50,7 +50,7 @@ public class AuthController {
         auth.setUserName(authDetails.getUserName());
         auth.setPassWord(authDetails.getPassWord());
 
-        Auth updateAuth= authDAO.save(auth);
+        Auth updateAuth = authDAO.save(auth);
 
         return ResponseEntity.ok().body(auth);
     }
