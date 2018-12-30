@@ -14,6 +14,8 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationFa
 import bios.springframework.spring5webapp.auth.CustomSimpleUrlAuthenticationSuccessHandler;
 import bios.springframework.spring5webapp.auth.RestAuthenticationEntryPoint;
 
+import javax.sql.DataSource;
+
 
 @Configuration
 @EnableWebSecurity
@@ -27,8 +29,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private CorsFilter corsFilter;
 
+    @Autowired
+    private DataSource dataSource;
+
     @Override
     protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
+
+//        auth.jdbcAuthentication().dataSource(dataSource)
+//                .usersByUsernameQuery("select username, password from auth where username =?");
+
         auth.inMemoryAuthentication()
                 .withUser("admin").password(encoder().encode("password")).roles("ADMIN")
                 .and()
