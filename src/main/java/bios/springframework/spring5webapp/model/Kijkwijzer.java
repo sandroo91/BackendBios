@@ -20,7 +20,7 @@ public class Kijkwijzer {
     @Column(name="tekst")
     private String tekst;
 
-    @Column(name="symbool", length = 3000)
+    @Column(name="symbool", length = 5000)
     private String symbool;
 
 
