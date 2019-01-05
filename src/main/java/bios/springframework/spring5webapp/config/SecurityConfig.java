@@ -14,6 +14,8 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationFa
 import bios.springframework.spring5webapp.auth.CustomSimpleUrlAuthenticationSuccessHandler;
 import bios.springframework.spring5webapp.auth.RestAuthenticationEntryPoint;
 
+import javax.sql.DataSource;
+
 
 @Configuration
 @EnableWebSecurity
@@ -29,10 +31,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("admin").password(encoder().encode("password")).roles("ADMIN")
-                .and()
-                .withUser("user").password(encoder().encode("password")).roles("USER");
+        auth.jdbcAuthentication()
+                .usersByUsernameQuery("select username,password from auth where username=?");
     }
 
     @Override
@@ -51,6 +51,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
              .failureHandler(myFailureHandler)
              .and()
              .logout();
+    }
+
+    private String getUserQuery() {
+        return "SELECT username, password"
+                + "FROM auth "
+                + "WHERE username = username";
     }
 
     @Bean

@@ -1,9 +1,12 @@
 package bios.springframework.spring5webapp.controllers;
 
+import bios.springframework.spring5webapp.config.CorsFilter;
 import bios.springframework.spring5webapp.model.Film;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.web.access.channel.ChannelProcessingFilter;
 import org.springframework.web.bind.annotation.*;
 import bios.springframework.spring5webapp.dao.FilmDAO;
 
