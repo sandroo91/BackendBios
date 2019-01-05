@@ -29,10 +29,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private CorsFilter corsFilter;
 
+    @Autowired
+    private DataSource dataSource;
+
     @Override
     protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
-        auth.jdbcAuthentication()
-                .usersByUsernameQuery("select username,password from auth where username=?");
+
+//        auth.jdbcAuthentication().dataSource(dataSource)
+//                .usersByUsernameQuery("select username, password from auth where username =?");
+
+        auth.inMemoryAuthentication()
+                .withUser("admin").password(encoder().encode("password")).roles("ADMIN")
+                .and()
+                .withUser("user").password(encoder().encode("password")).roles("USER");
     }
 
     @Override
@@ -51,12 +60,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
              .failureHandler(myFailureHandler)
              .and()
              .logout();
-    }
-
-    private String getUserQuery() {
-        return "SELECT username, password"
-                + "FROM auth "
-                + "WHERE username = username";
     }
 
     @Bean
