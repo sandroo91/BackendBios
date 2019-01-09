@@ -1,6 +1,7 @@
 package bios.springframework.spring5webapp.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -53,9 +54,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
              .authenticationEntryPoint(restAuthenticationEntryPoint)
              .and()
              .authorizeRequests()
-             .antMatchers("/login").permitAll()
+             .antMatchers("/","/Login","/Programma").permitAll()
+                .antMatchers("/admin/**").hasRole("ADMIN")
              .and()
-             .formLogin()
+             .formLogin().loginPage("/Login").permitAll()
              .successHandler(mySuccessHandler)
              .failureHandler(myFailureHandler)
              .and()
