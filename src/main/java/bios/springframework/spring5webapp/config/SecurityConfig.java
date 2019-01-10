@@ -1,5 +1,8 @@
 package bios.springframework.spring5webapp.config;
 
+
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,6 +18,8 @@ import bios.springframework.spring5webapp.auth.CustomSimpleUrlAuthenticationSucc
 import bios.springframework.spring5webapp.auth.RestAuthenticationEntryPoint;
 
 
+
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -27,8 +32,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private CorsFilter corsFilter;
 
-    @Override
-    protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
+    // add a reference to our security data source
+
+    @Autowired
+    private DataSource securityDataSource;
+
+
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//
+//        // use jdbc authentication ... !!!
+//
+//        auth.jdbcAuthentication().dataSource(securityDataSource);
+//
+//    }
+
+
+   @Override
+        protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
                 .withUser("admin").password(encoder().encode("password")).roles("ADMIN")
                 .and()
