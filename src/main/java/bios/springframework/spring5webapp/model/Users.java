@@ -10,12 +10,13 @@ import java.util.Set;
 
 
 @Entity
-@Table(name= "Auth")
-public class Auth {
+@Table(name= "Users")
+public class Users {
+
 
     @Id
-    @Column(name= "id",nullable=false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "usersid")
+    @GeneratedValue(strategy = GenerationType.IDENTITY )
     private Long id;
 
     @Column(name= "username",nullable=false)
@@ -24,21 +25,22 @@ public class Auth {
     @Column(name= "password",nullable=false)
     private String passWord;
 
+    @Column(name= "Enabled", nullable=false)
+    private Boolean enabled;
 
-    public Auth(){
+    @OneToMany(mappedBy = "users", cascade = CascadeType.MERGE)
+    @JsonIgnoreProperties(value = "users")
+    private Set<Authorities> authorities = new HashSet<>();
+
+    public Users(){
+
     }
 
-    public Auth(Long id) {
-        this.id = id;
-    }
-
-    @JsonGetter(value= "id")
-    public Long getAuthId() {
+    public Long getId() {
         return id;
     }
 
-//    @JsonSetter(value = "id")
-    public void setAuthId(Long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -56,6 +58,19 @@ public class Auth {
         this.passWord = passWord;
     }
 
+    public Boolean getEnabled() {
+        return enabled;
+    }
 
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
 
+    public Set<Authorities> getAuthorities() {
+        return authorities;
+    }
+
+    public void setAuthorities(Set<Authorities> authorities) {
+        this.authorities = authorities;
+    }
 }
