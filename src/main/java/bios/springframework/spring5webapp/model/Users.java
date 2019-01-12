@@ -1,12 +1,11 @@
 package bios.springframework.spring5webapp.model;
 
-import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Collection;
+import javax.persistence.Entity;
 
 
 @Entity
@@ -15,62 +14,67 @@ public class Users {
 
 
     @Id
-    @Column(name = "usersid")
-    @GeneratedValue(strategy = GenerationType.IDENTITY )
-    private Long id;
-
-    @Column(name= "username",nullable=false)
+    @Column(name= "username")
     private String userName;
 
-    @Column(name= "password",nullable=false)
-    private String passWord;
+    @Column(name= "Password", nullable=false)
+    private String password;
 
     @Column(name= "Enabled", nullable=false)
-    private Boolean enabled;
+    private boolean enabled;
 
-    @OneToMany(mappedBy = "users", cascade = CascadeType.MERGE)
-    @JsonIgnoreProperties(value = "users")
-    private Set<Authorities> authorities = new HashSet<>();
+    @OneToMany(mappedBy = "user", cascade = CascadeType.MERGE)
+    @JsonIgnoreProperties(value = "user")
+    private Collection<Authority> authorities;
 
     public Users(){
-
     }
 
-    public Long getId() {
-        return id;
+
+    public String getUserName() {
+        return userName;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public String getUserName() { return userName;
+    public String getPassword() {
+        return password;
     }
 
-    public void setUserName(String userName) { this.userName = userName;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public String getPassWord() {
-        return passWord;
-    }
-
-    public void setPassWord(String passWord) {
-        this.passWord = passWord;
-    }
-
-    public Boolean getEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(Boolean enabled) {
-        this.enabled = enabled;
-    }
-
-    public Set<Authorities> getAuthorities() {
+    public Collection<Authority> getAuthorities() {
         return authorities;
     }
 
-    public void setAuthorities(Set<Authorities> authorities) {
+    public void setAuthorities(Collection<Authority> authorities) {
         this.authorities = authorities;
     }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    @JsonIgnore
+    public void addAuthority(Authority authority){
+        authority.setUser(this);
+        this.authorities.add(authority);
+    }
+
+    @JsonIgnore
+    public void removeAuthority(Authority authority){
+        authority.setUser(null);
+        this.authorities.remove(authority);
+    }
+
+
 }
+

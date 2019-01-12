@@ -1,7 +1,6 @@
 package bios.springframework.spring5webapp.model;
 
 
-import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -12,15 +11,14 @@ import javax.persistence.Entity;
 @Table(name= "Authorities")
 public class Authority {
 
-    @ManyToOne
-    @JoinColumn(name = "username")
-    @JsonIgnoreProperties(value = "authorities")
-    private User user;
-
     @Id
     @Column(name= "authority")
     private String authority;
 
+    @ManyToOne
+    @JoinColumn(name = "username")
+    @JsonIgnoreProperties(value = "authorities")
+    private Users user;
 
     public Authority(){
     }
@@ -31,18 +29,13 @@ public class Authority {
 
     public void setAuthority() { this.authority = authority;}
 
-    public User getUser() {
+    public Users getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(Users user) {
         this.user = user;
     }
 
 }
-
-
-
-
-
 

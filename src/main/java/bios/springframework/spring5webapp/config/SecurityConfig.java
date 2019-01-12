@@ -38,41 +38,49 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private DataSource securityDataSource;
 
 
-//    @Override
-//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//
-//        // use jdbc authentication ... !!!
-//
-//        auth.jdbcAuthentication().dataSource(securityDataSource);
-//
-//    }
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
+        // use jdbc authentication ... !!!
 
-   @Override
-        protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("admin").password(encoder().encode("password")).roles("ADMIN")
-                .and()
-                .withUser("user").password(encoder().encode("password")).roles("USER");
+        auth.jdbcAuthentication().dataSource(securityDataSource);
+
     }
+
+
+//    @Override
+//    protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
+//        auth.inMemoryAuthentication()
+//                .withUser("admin").password(encoder().encode("password")).roles("ADMIN")
+//                .and()
+//                .withUser("user").password(encoder().encode("password")).roles("USER");
+//    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-             .addFilterBefore(corsFilter, ChannelProcessingFilter.class)
-             .csrf().disable()
-             .exceptionHandling()
-             .authenticationEntryPoint(restAuthenticationEntryPoint)
-             .and()
-             .authorizeRequests()
-             .antMatchers("/login").permitAll()
-             .and()
-             .formLogin()
-             .successHandler(mySuccessHandler)
-             .failureHandler(myFailureHandler)
-             .and()
-             .logout();
+                .addFilterBefore(corsFilter, ChannelProcessingFilter.class)
+                .csrf().disable()
+                .exceptionHandling()
+                .authenticationEntryPoint(restAuthenticationEntryPoint)
+                .and()
+                .authorizeRequests()
+                .antMatchers("/admin/**").hasRole("ADMIN")
+                .and()
+                .formLogin().loginPage("/Login").permitAll()
+                .successHandler(mySuccessHandler)
+                .failureHandler(myFailureHandler)
+                .and()
+                .logout();
     }
+//                .antMatchers("/login").permitAll()
+//                .and()
+//                .formLogin()
+//                .successHandler(mySuccessHandler)
+//                .failureHandler(myFailureHandler)
+//                .and()
+//                .logout();
+//    }
 
     @Bean
     public PasswordEncoder encoder() {

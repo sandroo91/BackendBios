@@ -46,10 +46,10 @@ public class UsersController {
             return ResponseEntity.notFound().build();
         }
 
-        users.setId(usersDetails.getId());
+        //users.setId(usersDetails.getId());
         users.setUserName(usersDetails.getUserName());
-        users.setPassWord(usersDetails.getPassWord());
-        users.setEnabled(usersDetails.getEnabled());
+        users.setPassword(usersDetails.getPassword());
+        users.setEnabled(usersDetails.isEnabled());
 
         Users updateAuth= usersDAO.save(users);
 
