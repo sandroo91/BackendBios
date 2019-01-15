@@ -55,7 +55,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
              .and()
              .authorizeRequests()
              .antMatchers("/","/Login","/Programma").permitAll()
-                .antMatchers("/admin/**").hasRole("ADMIN")
+
+.antMatchers("/admin/**").hasRole("ADMIN")
              .and()
              .formLogin().loginPage("/Login").permitAll()
              .successHandler(mySuccessHandler)
@@ -63,7 +64,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
              .and()
              .logout();
     }
-
     @Bean
     public PasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
