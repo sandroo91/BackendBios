@@ -21,6 +21,7 @@ public class Voorstelling {
     @Column(name="dag",nullable=false)
     private LocalDate dag;
 
+    @JsonFormat(pattern = "HH:mm")
     @Column(name="tijd",nullable=false)
     private LocalTime tijd;
 
