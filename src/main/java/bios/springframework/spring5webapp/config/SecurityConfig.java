@@ -1,7 +1,9 @@
 package bios.springframework.spring5webapp.config;
 
+
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -15,7 +17,7 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationFa
 import bios.springframework.spring5webapp.auth.CustomSimpleUrlAuthenticationSuccessHandler;
 import bios.springframework.spring5webapp.auth.RestAuthenticationEntryPoint;
 
-import javax.sql.DataSource;
+
 
 
 @Configuration
@@ -30,40 +32,56 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private CorsFilter corsFilter;
 
+    // add a reference to our security data source
+
     @Autowired
-    private DataSource dataSource;
+    private DataSource securityDataSource;
+
 
     @Override
-    protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
-//        auth.jdbcAuthentication().dataSource(dataSource)
-//                .usersByUsernameQuery("select username, password from auth where username =?");
+        // use jdbc authentication ... !!!
 
-        auth.inMemoryAuthentication()
-                .withUser("admin").password(encoder().encode("password")).roles("ADMIN")
-                .and()
-                .withUser("user").password(encoder().encode("password")).roles("USER");
+        auth.jdbcAuthentication().dataSource(securityDataSource);
+
     }
+
+
+//    @Override
+//    protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
+//        auth.inMemoryAuthentication()
+//                .withUser("admin").password(encoder().encode("password")).roles("ADMIN")
+//                .and()
+//                .withUser("user").password(encoder().encode("password")).roles("USER");
+//    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-             .addFilterBefore(corsFilter, ChannelProcessingFilter.class)
-             .csrf().disable()
-             .exceptionHandling()
-             .authenticationEntryPoint(restAuthenticationEntryPoint)
-             .and()
-             .authorizeRequests()
-             .antMatchers("/","/Login","/Programma").permitAll()
-
-.antMatchers("/admin/**").hasRole("ADMIN")
-             .and()
-             .formLogin().loginPage("/Login").permitAll()
-             .successHandler(mySuccessHandler)
-             .failureHandler(myFailureHandler)
-             .and()
-             .logout();
+                .addFilterBefore(corsFilter, ChannelProcessingFilter.class)
+                .csrf().disable()
+                .exceptionHandling()
+                .authenticationEntryPoint(restAuthenticationEntryPoint)
+                .and()
+                .authorizeRequests()
+                .antMatchers("/admin/**").hasRole("ADMIN")
+                .and()
+                .formLogin().loginPage("/Login").permitAll()
+                .successHandler(mySuccessHandler)
+                .failureHandler(myFailureHandler)
+                .and()
+                .logout();
     }
+//                .antMatchers("/login").permitAll()
+//                .and()
+//                .formLogin()
+//                .successHandler(mySuccessHandler)
+//                .failureHandler(myFailureHandler)
+//                .and()
+//                .logout();
+//    }
+
     @Bean
     public PasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
