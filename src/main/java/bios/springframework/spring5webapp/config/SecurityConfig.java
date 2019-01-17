@@ -47,7 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     }
 
-
+//
 //    @Override
 //    protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
 //        auth.inMemoryAuthentication()
@@ -65,9 +65,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticationEntryPoint(restAuthenticationEntryPoint)
                 .and()
                 .authorizeRequests()
+                .antMatchers("/", "/login", "/Programma").permitAll()
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .and()
-                .formLogin().loginPage("/Login").permitAll()
+                .formLogin().loginPage("/login").permitAll()
                 .successHandler(mySuccessHandler)
                 .failureHandler(myFailureHandler)
                 .and()
